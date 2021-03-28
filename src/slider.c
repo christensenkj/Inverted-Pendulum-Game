@@ -54,43 +54,20 @@ void slider_setup() {
  ******************************************************************************/
 void slider_position(uint8_t *position) {
 	CAPSENSE_Sense();
-	// initialize slider button values
-	uint8_t val0 = 0;
-	uint8_t val1 = 0;
-	uint8_t val2 = 0;
-	uint8_t val3 = 0;
-	// initialize logical placeholders
-	uint8_t val_left, val_right;
 	// set position to inactive state
 	*position = INACTIVE;
 	// Determine which pads of the slider are pressed
 	if (CAPSENSE_getPressed(0)) {
-		val0 = 1;
+		*position = HARD_LEFT;
 	}
-	if (CAPSENSE_getPressed(1)) {
-		val1 = 1;
+	else if (CAPSENSE_getPressed(1)) {
+		*position = SOFT_LEFT;
 	}
-	if (CAPSENSE_getPressed(2)) {
-		val2 = 1;
+	else if (CAPSENSE_getPressed(2)) {
+		*position = SOFT_RIGHT;
 	}
-	if (CAPSENSE_getPressed(3)) {
-		val3 = 1;
-	}
-	// find which side of the slider is being pressed
-	val_left = val0 || val1;
-	val_right = val2 || val3;
-	// Set the position based on the contact with the slider
-	if (val_left && val_right) {
-		*position = INACTIVE;	// If both left and right are touched, treat as inactive
-	}
-	else if (val_left) {
-		*position = LEFT;
-	}
-	else if (val_right) {
-		*position = RIGHT;
-	}
-	else {
-		*position = INACTIVE;
+	else if (CAPSENSE_getPressed(3)) {
+		*position = HARD_RIGHT;
 	}
 	return;
 }

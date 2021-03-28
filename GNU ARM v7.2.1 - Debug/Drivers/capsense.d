@@ -60,7 +60,7 @@ Drivers/capsense.o: ../Drivers/capsense.c \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_cmu.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_common.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_emu.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\Drivers_inc/capsense.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Drivers_inc/capsense.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\capsenseconfig.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\cpu\include\cpu.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\cpu\include\cpu_def.h \
@@ -86,7 +86,7 @@ Drivers/capsense.o: ../Drivers/capsense.c \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\lib_utils.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_version.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_utils.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\external_copied_files/os_cfg.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_port_sel.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\ports\source\gnu\armv7m_os_cpu.h \
@@ -222,7 +222,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_emu.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\Drivers_inc/capsense.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Drivers_inc/capsense.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\capsenseconfig.h:
 
@@ -274,7 +274,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_utils.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\external_copied_files/os_cfg.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h:
 

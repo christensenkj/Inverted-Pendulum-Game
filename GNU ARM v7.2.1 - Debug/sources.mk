@@ -20,6 +20,7 @@ BSP \
 BSP/siliconlabs/generic/source \
 CMSIS/EFM32PG12B \
 Drivers \
+Graphics \
 SystemView \
 common \
 common/source/auth \

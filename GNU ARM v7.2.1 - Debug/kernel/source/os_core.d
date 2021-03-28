@@ -79,7 +79,7 @@ kernel/source/os_core.o: \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_version.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_utils.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\app\mcu_example\slstk3402a_efm32pg12\micriumos_blink\cfg\rtos_cfg.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\external_copied_files/os_cfg.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_port_sel.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\ports\source\gnu\armv7m_os_cpu.h \
@@ -266,7 +266,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\app\mcu_example\slstk3402a_efm32pg12\micriumos_blink\cfg\rtos_cfg.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\external_copied_files/os_cfg.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h:
 

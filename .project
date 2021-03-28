@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>RTOS_Lab6_ITC</name>
+	<name>RTOS_Lab7</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -44,6 +44,81 @@
 			<name>BSP/bsp_trace.c</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/bsp/bsp_trace.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/display.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/display.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/displayls013b7dh03.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/displayls013b7dh03.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/displaypalemlib.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/displaypalemlib.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/retargetio.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/retargetio.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/retargettextdisplay.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/retargettextdisplay.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/textdisplay.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/textdisplay.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/udelay.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/hardware/kit/common/drivers/udelay.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/dmd_display.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/dmd/display/dmd_display.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_bitmap.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_bitmap.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_circle.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_circle.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_font_narrow_6x8.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_font_narrow_6x8.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_font_number_16x20.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_font_number_16x20.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_line.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_line.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_rectangle.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_rectangle.c</locationURI>
+		</link>
+		<link>
+			<name>Graphics/glib_string.c</name>
+			<type>1</type>
+			<locationURI>STUDIO_SDK_LOC/platform/middleware/glib/glib/glib_string.c</locationURI>
 		</link>
 		<link>
 			<name>emlib/em_assert.c</name>

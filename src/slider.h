@@ -12,9 +12,14 @@
 #include <stdint.h>
 
 // useful definitions for determining slider state
-#define INACTIVE	255
-#define LEFT		0
-#define RIGHT		1
+
+enum slider_pos {
+	INACTIVE,
+	HARD_LEFT,
+	SOFT_LEFT,
+	SOFT_RIGHT,
+	HARD_RIGHT,
+};
 
 // Function prototypes
 void slider_setup(void);

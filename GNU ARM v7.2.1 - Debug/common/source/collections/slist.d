@@ -92,7 +92,7 @@ common/source/collections/slist.o: \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\lib_math.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_version.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\external_copied_files/os_cfg.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_port_sel.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\ports\source\gnu\armv7m_os_cpu.h \
@@ -284,7 +284,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_version.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab3_Tasks_Final\external_copied_files/os_cfg.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h:
 
