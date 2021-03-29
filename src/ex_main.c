@@ -885,8 +885,11 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
 {
     RTOS_ERR  err;
     EMSTATUS status;
-    char clockString[16];
-
+    char speedString[16];
+    char dirString1[16] = "Direction:";
+    char dirString2[16];
+    uint8_t cur_speed;
+    uint8_t cur_dir;
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
@@ -911,16 +914,50 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
         ;
     }
     while (DEF_ON) {
-        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNumber16x20);
+    	// lock access to speed data structure using mutex
+    	OSMutexPend (&speed_setpoint_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	cur_speed = speed_setpoint_data.cur_speed;
+    	// release access to speed
+    	OSMutexPost (&speed_setpoint_mutex, OS_OPT_POST_NONE, &err);
+    	// lock access to speed data structure using mutex
+    	OSMutexPend (&vehicle_direction_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	cur_dir = vehicle_direction_data.cur_dir;
+    	// release access to speed
+    	OSMutexPost (&vehicle_direction_mutex, OS_OPT_POST_NONE, &err);
+        sprintf(speedString, "Speed: %d MPH", cur_speed);
+        if (cur_dir == 1) {
+        	sprintf(dirString2, "Hard Left");
+        }
+        else if (cur_dir == 2) {
+        	sprintf(dirString2, "Soft Left");
+        }
+        else if (cur_dir == 3) {
+        	sprintf(dirString2, "Soft Right");
+        }
+        else if (cur_dir == 4) {
+        	sprintf(dirString2, "Hard Right");
+        }
+        else {
+        	sprintf(dirString2, "Straight");
+        }
+        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
         gc.backgroundColor = White;
         gc.foregroundColor = Black;
         GLIB_clear(&gc);
-        sprintf(clockString, "%02d:%02d:%02d", vehicle_direction_data.cur_dir, vehicle_direction_data.cur_dir_time, speed_setpoint_data.cur_speed);
-        GLIB_drawString(&gc, clockString, strlen(clockString), 1, 52, true);
+        GLIB_drawString(&gc, speedString, strlen(speedString), 1, 10, true);
+        GLIB_drawString(&gc, dirString1, strlen(dirString1), 1, 40, true);
+        GLIB_drawString(&gc, dirString2, strlen(dirString2), 1, 60, true);
         /* Update display */
         DMD_updateDisplay();
+//        gc.backgroundColor = White;
+//        gc.foregroundColor = Black;
+//        GLIB_clear(&gc);
+//        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
+//        snprintf(str, 256, "  EFM32 GLIB \nNormal 8x8 font");
+//        GLIB_drawString(&gc, str, strlen(str), 5, 5, 0);
+//        DMD_updateDisplay();
         /* Delay Start Task execution for  */
-		OSTimeDly( 10,OS_OPT_TIME_DLY,&err);
+		OSTimeDly( 10,OS_OPT_TIME_PERIODIC,&err);
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }

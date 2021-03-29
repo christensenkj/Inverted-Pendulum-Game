@@ -2752,6 +2752,15 @@ Discarded input sections
  .text          0x00000000        0x0 ./Graphics/glib_font_number_16x20.o
  .data          0x00000000        0x0 ./Graphics/glib_font_number_16x20.o
  .bss           0x00000000        0x0 ./Graphics/glib_font_number_16x20.o
+ .rodata.GLIB_FontNumber16x20PixMap
+                0x00000000      0x1e0 ./Graphics/glib_font_number_16x20.o
+ .rodata.GLIB_FontNumber16x20
+                0x00000000       0x10 ./Graphics/glib_font_number_16x20.o
+ .debug_info    0x00000000      0xac2 ./Graphics/glib_font_number_16x20.o
+ .debug_abbrev  0x00000000      0x197 ./Graphics/glib_font_number_16x20.o
+ .debug_aranges
+                0x00000000       0x18 ./Graphics/glib_font_number_16x20.o
+ .debug_macro   0x00000000      0x15c ./Graphics/glib_font_number_16x20.o
  .debug_macro   0x00000000      0xa4e ./Graphics/glib_font_number_16x20.o
  .debug_macro   0x00000000       0x22 ./Graphics/glib_font_number_16x20.o
  .debug_macro   0x00000000       0x4f ./Graphics/glib_font_number_16x20.o
@@ -2777,6 +2786,11 @@ Discarded input sections
  .debug_macro   0x00000000      0x3a9 ./Graphics/glib_font_number_16x20.o
  .debug_macro   0x00000000       0x7c ./Graphics/glib_font_number_16x20.o
  .debug_macro   0x00000000       0x51 ./Graphics/glib_font_number_16x20.o
+ .debug_line    0x00000000      0x426 ./Graphics/glib_font_number_16x20.o
+ .debug_str     0x00000000     0x80ee ./Graphics/glib_font_number_16x20.o
+ .comment       0x00000000       0x7f ./Graphics/glib_font_number_16x20.o
+ .ARM.attributes
+                0x00000000       0x37 ./Graphics/glib_font_number_16x20.o
  .group         0x00000000        0xc ./Graphics/glib_line.o
  .group         0x00000000        0xc ./Graphics/glib_line.o
  .group         0x00000000        0xc ./Graphics/glib_line.o
@@ -17170,7 +17184,7 @@ END GROUP
 LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtend.o
 LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
 
-.text           0x00000000    0x14004
+.text           0x00000000    0x13f80
  *(.vectors)
  .vectors       0x00000000      0x10c ./CMSIS/EFM32PG12B/startup_efm32pg12b.o
                 0x00000000                __Vectors
@@ -18292,96 +18306,95 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
  .text.Ex_MainLedOutputTask
                 0x0000eec8       0xd4 ./src/ex_main.o
  .text.Ex_MainLcdDisplayTask
-                0x0000ef9c       0xc0 ./src/ex_main.o
+                0x0000ef9c      0x1e4 ./src/ex_main.o
  .text.MyCallback
-                0x0000f05c       0x30 ./src/ex_main.o
+                0x0000f180       0x30 ./src/ex_main.o
  .text.GPIO_EVEN_IRQHandler
-                0x0000f08c       0xa4 ./src/ex_main.o
-                0x0000f08c                GPIO_EVEN_IRQHandler
+                0x0000f1b0       0xa4 ./src/ex_main.o
+                0x0000f1b0                GPIO_EVEN_IRQHandler
  .text.GPIO_ODD_IRQHandler
-                0x0000f130       0xa4 ./src/ex_main.o
-                0x0000f130                GPIO_ODD_IRQHandler
+                0x0000f254       0xa4 ./src/ex_main.o
+                0x0000f254                GPIO_ODD_IRQHandler
  .text.gpio_open
-                0x0000f1d4       0x34 ./src/gpio.o
-                0x0000f1d4                gpio_open
+                0x0000f2f8       0x34 ./src/gpio.o
+                0x0000f2f8                gpio_open
  .text.slider_setup
-                0x0000f208        0xc ./src/slider.o
-                0x0000f208                slider_setup
+                0x0000f32c        0xc ./src/slider.o
+                0x0000f32c                slider_setup
  .text.slider_position
-                0x0000f214       0x6a ./src/slider.o
-                0x0000f214                slider_position
- *fill*         0x0000f27e        0x2 
- .text          0x0000f280       0x30 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_aeabi_uldivmod.o)
-                0x0000f280                __aeabi_uldivmod
- .text          0x0000f2b0      0x2cc c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_udivmoddi4.o)
-                0x0000f2b0                __udivmoddi4
- .text          0x0000f57c        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_dvmd_tls.o)
-                0x0000f57c                __aeabi_idiv0
-                0x0000f57c                __aeabi_ldiv0
- .text.exit     0x0000f580       0x28 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-exit.o)
-                0x0000f580                exit
+                0x0000f338       0x6a ./src/slider.o
+                0x0000f338                slider_position
+ *fill*         0x0000f3a2        0x2 
+ .text          0x0000f3a4       0x30 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_aeabi_uldivmod.o)
+                0x0000f3a4                __aeabi_uldivmod
+ .text          0x0000f3d4      0x2cc c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_udivmoddi4.o)
+                0x0000f3d4                __udivmoddi4
+ .text          0x0000f6a0        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_dvmd_tls.o)
+                0x0000f6a0                __aeabi_idiv0
+                0x0000f6a0                __aeabi_ldiv0
+ .text.exit     0x0000f6a4       0x28 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-exit.o)
+                0x0000f6a4                exit
  .text.__libc_init_array
-                0x0000f5a8       0x48 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-init.o)
-                0x0000f5a8                __libc_init_array
- .text.memcpy   0x0000f5f0       0x16 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memcpy-stub.o)
-                0x0000f5f0                memcpy
- .text.memset   0x0000f606       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memset.o)
-                0x0000f606                memset
- *fill*         0x0000f616        0x2 
- .text._free_r  0x0000f618       0x9c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-freer.o)
-                0x0000f618                _free_r
+                0x0000f6cc       0x48 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-init.o)
+                0x0000f6cc                __libc_init_array
+ .text.memcpy   0x0000f714       0x16 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memcpy-stub.o)
+                0x0000f714                memcpy
+ .text.memset   0x0000f72a       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memset.o)
+                0x0000f72a                memset
+ *fill*         0x0000f73a        0x2 
+ .text._free_r  0x0000f73c       0x9c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-freer.o)
+                0x0000f73c                _free_r
  .text._malloc_r
-                0x0000f6b4       0xb4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-mallocr.o)
-                0x0000f6b4                _malloc_r
- .text._sbrk_r  0x0000f768       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sbrkr.o)
-                0x0000f768                _sbrk_r
- .text.sprintf  0x0000f788       0x40 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sprintf.o)
-                0x0000f788                siprintf
-                0x0000f788                sprintf
- .text.strcpy   0x0000f7c8       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strcpy.o)
-                0x0000f7c8                strcpy
- .text          0x0000f7d8       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strlen.o)
-                0x0000f7d8                strlen
+                0x0000f7d8       0xb4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x0000f7d8                _malloc_r
+ .text._sbrk_r  0x0000f88c       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sbrkr.o)
+                0x0000f88c                _sbrk_r
+ .text.sprintf  0x0000f8ac       0x40 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sprintf.o)
+                0x0000f8ac                siprintf
+                0x0000f8ac                sprintf
+ .text.strcpy   0x0000f8ec       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strcpy.o)
+                0x0000f8ec                strcpy
+ .text          0x0000f8fc       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strlen.o)
+                0x0000f8fc                strlen
  .text.__malloc_lock
-                0x0000f7e8        0x2 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-mlock.o)
-                0x0000f7e8                __malloc_lock
+                0x0000f90c        0x2 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-mlock.o)
+                0x0000f90c                __malloc_lock
  .text.__malloc_unlock
-                0x0000f7ea        0x2 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-mlock.o)
-                0x0000f7ea                __malloc_unlock
+                0x0000f90e        0x2 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-mlock.o)
+                0x0000f90e                __malloc_unlock
  .text.__ssputs_r
-                0x0000f7ec       0xb4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000f7ec                __ssputs_r
+                0x0000f910       0xb4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000f910                __ssputs_r
  .text._svfprintf_r
-                0x0000f8a0      0x1ec c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000f8a0                _svfiprintf_r
-                0x0000f8a0                _svfprintf_r
+                0x0000f9c4      0x1ec c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000f9c4                _svfiprintf_r
+                0x0000f9c4                _svfprintf_r
  .text._printf_common
-                0x0000fa8c       0xea c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000fa8c                _printf_common
- *fill*         0x0000fb76        0x2 
+                0x0000fbb0       0xea c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000fbb0                _printf_common
+ *fill*         0x0000fc9a        0x2 
  .text._printf_i
-                0x0000fb78      0x224 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000fb78                _printf_i
- *fill*         0x0000fd9c        0x4 
- .text          0x0000fda0       0xa0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memchr.o)
-                0x0000fda0                memchr
- .text.memmove  0x0000fe40       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memmove.o)
-                0x0000fe40                memmove
+                0x0000fc9c      0x224 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000fc9c                _printf_i
+ .text          0x0000fec0       0xa0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memchr.o)
+                0x0000fec0                memchr
+ .text.memmove  0x0000ff60       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memmove.o)
+                0x0000ff60                memmove
  .text._realloc_r
-                0x0000fe72       0x4c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-reallocr.o)
-                0x0000fe72                _realloc_r
+                0x0000ff92       0x4c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-reallocr.o)
+                0x0000ff92                _realloc_r
  .text._malloc_usable_size_r
-                0x0000febe       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-msizer.o)
-                0x0000febe                _malloc_usable_size_r
+                0x0000ffde       0x10 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-msizer.o)
+                0x0000ffde                _malloc_usable_size_r
  *(.init)
- *fill*         0x0000fece        0x2 
- .init          0x0000fed0        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crti.o
-                0x0000fed0                _init
- .init          0x0000fed4        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
+ *fill*         0x0000ffee        0x2 
+ .init          0x0000fff0        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crti.o
+                0x0000fff0                _init
+ .init          0x0000fff4        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
  *(.fini)
- .fini          0x0000fedc        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crti.o
-                0x0000fedc                _fini
- .fini          0x0000fee0        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
+ .fini          0x0000fffc        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crti.o
+                0x0000fffc                _fini
+ .fini          0x00010000        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -18394,237 +18407,231 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
  *(.dtors)
  *(.rodata*)
  .rodata.dcdcInit
-                0x0000fee8       0x10 ./BSP/siliconlabs/generic/source/bsp_os.o
+                0x00010008       0x10 ./BSP/siliconlabs/generic/source/bsp_os.o
  .rodata.channelList
-                0x0000fef8        0x4 ./Drivers/capsense.o
- .rodata        0x0000fefc       0x18 ./Drivers/capsense.o
- .rodata        0x0000ff14       0x15 ./Drivers/displayls013b7dh03.o
- *fill*         0x0000ff29        0x3 
- .rodata        0x0000ff2c       0xf3 ./Drivers/displaypalemlib.o
- *fill*         0x0001001f        0x1 
- .rodata        0x00010020        0x9 ./Drivers/udelay.o
- *fill*         0x00010029        0x3 
+                0x00010018        0x4 ./Drivers/capsense.o
+ .rodata        0x0001001c       0x18 ./Drivers/capsense.o
+ .rodata        0x00010034       0x15 ./Drivers/displayls013b7dh03.o
+ *fill*         0x00010049        0x3 
+ .rodata        0x0001004c       0xf3 ./Drivers/displaypalemlib.o
+ *fill*         0x0001013f        0x1 
+ .rodata        0x00010140        0x9 ./Drivers/udelay.o
+ *fill*         0x00010149        0x3 
  .rodata.GLIB_FontNarrow6x8PixMap
-                0x0001002c      0x320 ./Graphics/glib_font_narrow_6x8.o
+                0x0001014c      0x320 ./Graphics/glib_font_narrow_6x8.o
  .rodata.GLIB_FontNarrow6x8
-                0x0001034c       0x10 ./Graphics/glib_font_narrow_6x8.o
-                0x0001034c                GLIB_FontNarrow6x8
- .rodata.GLIB_FontNumber16x20PixMap
-                0x0001035c      0x1e0 ./Graphics/glib_font_number_16x20.o
- .rodata.GLIB_FontNumber16x20
-                0x0001053c       0x10 ./Graphics/glib_font_number_16x20.o
-                0x0001053c                GLIB_FontNumber16x20
- .rodata        0x0001054c       0x17 ./SystemView/SEGGER_RTT.o
- *fill*         0x00010563        0x1 
+                0x0001046c       0x10 ./Graphics/glib_font_narrow_6x8.o
+                0x0001046c                GLIB_FontNarrow6x8
+ .rodata        0x0001047c       0x17 ./SystemView/SEGGER_RTT.o
+ *fill*         0x00010493        0x1 
  .rodata._abSync
-                0x00010564        0xa ./SystemView/SEGGER_SYSVIEW.o
- *fill*         0x0001056e        0x2 
- .rodata        0x00010570        0x8 ./SystemView/SEGGER_SYSVIEW.o
- .rodata        0x00010578       0x41 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
- *fill*         0x000105b9        0x3 
- .rodata        0x000105bc       0xa3 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
- *fill*         0x0001065f        0x1 
+                0x00010494        0xa ./SystemView/SEGGER_SYSVIEW.o
+ *fill*         0x0001049e        0x2 
+ .rodata        0x000104a0        0x8 ./SystemView/SEGGER_SYSVIEW.o
+ .rodata        0x000104a8       0x41 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+ *fill*         0x000104e9        0x3 
+ .rodata        0x000104ec       0xa3 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+ *fill*         0x0001058f        0x1 
  .rodata.SYSVIEW_X_OS_TraceAPI
-                0x00010660        0x8 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
-                0x00010660                SYSVIEW_X_OS_TraceAPI
- .rodata        0x00010668       0x79 ./common/source/common/common.o
- *fill*         0x000106e1        0x3 
+                0x00010590        0x8 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+                0x00010590                SYSVIEW_X_OS_TraceAPI
+ .rodata        0x00010598       0x79 ./common/source/common/common.o
+ *fill*         0x00010611        0x3 
  .rodata.__func__.8538
-                0x000106e4        0xc ./common/source/common/common.o
- .rodata        0x000106f0      0x105 ./common/source/kal/kal_kernel.o
- *fill*         0x000107f5        0x3 
+                0x00010614        0xc ./common/source/common/common.o
+ .rodata        0x00010620      0x105 ./common/source/kal/kal_kernel.o
+ *fill*         0x00010725        0x3 
  .rodata.__func__.8856
-                0x000107f8        0x9 ./common/source/kal/kal_kernel.o
- *fill*         0x00010801        0x3 
- .rodata        0x00010804       0x77 ./common/source/lib/lib_mem.o
- *fill*         0x0001087b        0x1 
+                0x00010728        0x9 ./common/source/kal/kal_kernel.o
+ *fill*         0x00010731        0x3 
+ .rodata        0x00010734       0x77 ./common/source/lib/lib_mem.o
+ *fill*         0x000107ab        0x1 
  .rodata.__func__.8643
-                0x0001087c        0xb ./common/source/lib/lib_mem.o
- *fill*         0x00010887        0x1 
+                0x000107ac        0xb ./common/source/lib/lib_mem.o
+ *fill*         0x000107b7        0x1 
  .rodata.__func__.8709
-                0x00010888       0x12 ./common/source/lib/lib_mem.o
- *fill*         0x0001089a        0x2 
+                0x000107b8       0x12 ./common/source/lib/lib_mem.o
+ *fill*         0x000107ca        0x2 
  .rodata.__func__.8746
-                0x0001089c       0x12 ./common/source/lib/lib_mem.o
- *fill*         0x000108ae        0x2 
+                0x000107cc       0x12 ./common/source/lib/lib_mem.o
+ *fill*         0x000107de        0x2 
  .rodata.__func__.8756
-                0x000108b0       0x13 ./common/source/lib/lib_mem.o
- *fill*         0x000108c3        0x1 
+                0x000107e0       0x13 ./common/source/lib/lib_mem.o
+ *fill*         0x000107f3        0x1 
  .rodata.__func__.8803
-                0x000108c4       0x15 ./common/source/lib/lib_mem.o
- *fill*         0x000108d9        0x3 
+                0x000107f4       0x15 ./common/source/lib/lib_mem.o
+ *fill*         0x00010809        0x3 
  .rodata.__func__.8819
-                0x000108dc       0x18 ./common/source/lib/lib_mem.o
+                0x0001080c       0x18 ./common/source/lib/lib_mem.o
  .rodata.__func__.8833
-                0x000108f4       0x1a ./common/source/lib/lib_mem.o
- *fill*         0x0001090e        0x2 
- .rodata        0x00010910       0xd5 ./common/source/platform_mgr/platform_mgr.o
- *fill*         0x000109e5        0x3 
+                0x00010824       0x1a ./common/source/lib/lib_mem.o
+ *fill*         0x0001083e        0x2 
+ .rodata        0x00010840       0xd5 ./common/source/platform_mgr/platform_mgr.o
+ *fill*         0x00010915        0x3 
  .rodata.__func__.8597
-                0x000109e8       0x10 ./common/source/platform_mgr/platform_mgr.o
- .rodata        0x000109f8     0x2350 ./common/source/rtos/rtos_err_str.o
+                0x00010918       0x10 ./common/source/platform_mgr/platform_mgr.o
+ .rodata        0x00010928     0x2350 ./common/source/rtos/rtos_err_str.o
  .rodata.RTOS_ErrStrTbl
-                0x00012d48      0x24c ./common/source/rtos/rtos_err_str.o
-                0x00012d48                RTOS_ErrStrTbl
+                0x00012c78      0x24c ./common/source/rtos/rtos_err_str.o
+                0x00012c78                RTOS_ErrStrTbl
  .rodata.RTOS_ErrDescStrTbl
-                0x00012f94      0x24c ./common/source/rtos/rtos_err_str.o
-                0x00012f94                RTOS_ErrDescStrTbl
- .rodata        0x000131e0       0x71 ./cpu/source/cpu_core.o
- *fill*         0x00013251        0x3 
+                0x00012ec4      0x24c ./common/source/rtos/rtos_err_str.o
+                0x00012ec4                RTOS_ErrDescStrTbl
+ .rodata        0x00013110       0x71 ./cpu/source/cpu_core.o
+ *fill*         0x00013181        0x3 
  .rodata.__func__.8503
-                0x00013254       0x12 ./cpu/source/cpu_core.o
- *fill*         0x00013266        0x2 
- .rodata        0x00013268       0x13 ./emlib/em_acmp.o
- *fill*         0x0001327b        0x1 
- .rodata        0x0001327c      0x12f ./emlib/em_cmu.o
- *fill*         0x000133ab        0x1 
+                0x00013184       0x12 ./cpu/source/cpu_core.o
+ *fill*         0x00013196        0x2 
+ .rodata        0x00013198       0x13 ./emlib/em_acmp.o
+ *fill*         0x000131ab        0x1 
+ .rodata        0x000131ac      0x12f ./emlib/em_cmu.o
+ *fill*         0x000132db        0x1 
  .rodata.flashWsTable
-                0x000133ac       0x28 ./emlib/em_cmu.o
- .rodata        0x000133d4       0x63 ./emlib/em_emu.o
- *fill*         0x00013437        0x1 
- .rodata        0x00013438       0xc8 ./emlib/em_gpio.o
- .rodata        0x00013500       0x12 ./emlib/em_prs.o
- *fill*         0x00013512        0x2 
- .rodata        0x00013514       0x64 ./emlib/em_rtcc.o
- .rodata        0x00013578       0x65 ./emlib/em_usart.o
- *fill*         0x000135dd        0x3 
+                0x000132dc       0x28 ./emlib/em_cmu.o
+ .rodata        0x00013304       0x63 ./emlib/em_emu.o
+ *fill*         0x00013367        0x1 
+ .rodata        0x00013368       0xc8 ./emlib/em_gpio.o
+ .rodata        0x00013430       0x12 ./emlib/em_prs.o
+ *fill*         0x00013442        0x2 
+ .rodata        0x00013444       0x64 ./emlib/em_rtcc.o
+ .rodata        0x000134a8       0x65 ./emlib/em_usart.o
+ *fill*         0x0001350d        0x3 
  .rodata.OSCfg_StkSizeMin
-                0x000135e0        0x4 ./kernel/source/os_cfg_app.o
-                0x000135e0                OSCfg_StkSizeMin
- .rodata        0x000135e4       0xea ./kernel/source/os_core.o
- *fill*         0x000136ce        0x2 
+                0x00013510        0x4 ./kernel/source/os_cfg_app.o
+                0x00013510                OSCfg_StkSizeMin
+ .rodata        0x00013514       0xea ./kernel/source/os_core.o
+ *fill*         0x000135fe        0x2 
  .rodata.__func__.9085
-                0x000136d0        0x7 ./kernel/source/os_core.o
- *fill*         0x000136d7        0x1 
+                0x00013600        0x7 ./kernel/source/os_core.o
+ *fill*         0x00013607        0x1 
  .rodata.__func__.9110
-                0x000136d8        0xc ./kernel/source/os_core.o
+                0x00013608        0xc ./kernel/source/os_core.o
  .rodata.__func__.9117
-                0x000136e4        0xe ./kernel/source/os_core.o
- *fill*         0x000136f2        0x2 
+                0x00013614        0xe ./kernel/source/os_core.o
+ *fill*         0x00013622        0x2 
  .rodata.__func__.9140
-                0x000136f4        0x8 ./kernel/source/os_core.o
- .rodata        0x000136fc       0x7e ./kernel/source/os_flag.o
- *fill*         0x0001377a        0x2 
+                0x00013624        0x8 ./kernel/source/os_core.o
+ .rodata        0x0001362c       0x7e ./kernel/source/os_flag.o
+ *fill*         0x000136aa        0x2 
  .rodata.__func__.9051
-                0x0001377c        0xd ./kernel/source/os_flag.o
- *fill*         0x00013789        0x3 
+                0x000136ac        0xd ./kernel/source/os_flag.o
+ *fill*         0x000136b9        0x3 
  .rodata.__func__.9090
-                0x0001378c        0xb ./kernel/source/os_flag.o
- *fill*         0x00013797        0x1 
+                0x000136bc        0xb ./kernel/source/os_flag.o
+ *fill*         0x000136c7        0x1 
  .rodata.__func__.9151
-                0x00013798        0xb ./kernel/source/os_flag.o
- *fill*         0x000137a3        0x1 
- .rodata        0x000137a4       0x72 ./kernel/source/os_msg.o
- *fill*         0x00013816        0x2 
+                0x000136c8        0xb ./kernel/source/os_flag.o
+ *fill*         0x000136d3        0x1 
+ .rodata        0x000136d4       0x72 ./kernel/source/os_msg.o
+ *fill*         0x00013746        0x2 
  .rodata.__func__.9054
-                0x00013818        0xf ./kernel/source/os_msg.o
- *fill*         0x00013827        0x1 
- .rodata        0x00013828       0x7e ./kernel/source/os_mutex.o
- *fill*         0x000138a6        0x2 
+                0x00013748        0xf ./kernel/source/os_msg.o
+ *fill*         0x00013757        0x1 
+ .rodata        0x00013758       0x7e ./kernel/source/os_mutex.o
+ *fill*         0x000137d6        0x2 
  .rodata.__func__.9050
-                0x000138a8        0xe ./kernel/source/os_mutex.o
- *fill*         0x000138b6        0x2 
+                0x000137d8        0xe ./kernel/source/os_mutex.o
+ *fill*         0x000137e6        0x2 
  .rodata.__func__.9088
-                0x000138b8        0xc ./kernel/source/os_mutex.o
+                0x000137e8        0xc ./kernel/source/os_mutex.o
  .rodata.__func__.9131
-                0x000138c4        0xc ./kernel/source/os_mutex.o
- .rodata        0x000138d0       0x7e ./kernel/source/os_sem.o
- *fill*         0x0001394e        0x2 
+                0x000137f4        0xc ./kernel/source/os_mutex.o
+ .rodata        0x00013800       0x7e ./kernel/source/os_sem.o
+ *fill*         0x0001387e        0x2 
  .rodata.__func__.9051
-                0x00013950        0xc ./kernel/source/os_sem.o
+                0x00013880        0xc ./kernel/source/os_sem.o
  .rodata.__func__.9087
-                0x0001395c        0xa ./kernel/source/os_sem.o
- *fill*         0x00013966        0x2 
+                0x0001388c        0xa ./kernel/source/os_sem.o
+ *fill*         0x00013896        0x2 
  .rodata.__func__.9129
-                0x00013968        0xa ./kernel/source/os_sem.o
- *fill*         0x00013972        0x2 
- .rodata        0x00013974       0x87 ./kernel/source/os_stat.o
- *fill*         0x000139fb        0x1 
+                0x00013898        0xa ./kernel/source/os_sem.o
+ *fill*         0x000138a2        0x2 
+ .rodata        0x000138a4       0x87 ./kernel/source/os_stat.o
+ *fill*         0x0001392b        0x1 
  .rodata.__func__.9061
-                0x000139fc        0xc ./kernel/source/os_stat.o
- .rodata        0x00013a08       0x7e ./kernel/source/os_task.o
- *fill*         0x00013a86        0x2 
+                0x0001392c        0xc ./kernel/source/os_stat.o
+ .rodata        0x00013938       0x7e ./kernel/source/os_task.o
+ *fill*         0x000139b6        0x2 
  .rodata.__func__.9076
-                0x00013a88        0xd ./kernel/source/os_task.o
- *fill*         0x00013a95        0x3 
+                0x000139b8        0xd ./kernel/source/os_task.o
+ *fill*         0x000139c5        0x3 
  .rodata.__func__.9099
-                0x00013a98        0xa ./kernel/source/os_task.o
- *fill*         0x00013aa2        0x2 
+                0x000139c8        0xa ./kernel/source/os_task.o
+ *fill*         0x000139d2        0x2 
  .rodata.__func__.9312
-                0x00013aa4        0xd ./kernel/source/os_task.o
- *fill*         0x00013ab1        0x3 
+                0x000139d4        0xd ./kernel/source/os_task.o
+ *fill*         0x000139e1        0x3 
  .rodata.__func__.9362
-                0x00013ab4        0xc ./kernel/source/os_task.o
- .rodata        0x00013ac0       0x73 ./kernel/source/os_time.o
- *fill*         0x00013b33        0x1 
+                0x000139e4        0xc ./kernel/source/os_task.o
+ .rodata        0x000139f0       0x73 ./kernel/source/os_time.o
+ *fill*         0x00013a63        0x1 
  .rodata.__func__.9047
-                0x00013b34       0x14 ./kernel/source/os_time.o
+                0x00013a64       0x14 ./kernel/source/os_time.o
  .rodata.__func__.9056
-                0x00013b48        0xa ./kernel/source/os_time.o
- *fill*         0x00013b52        0x2 
- .rodata        0x00013b54       0xa0 ./kernel/source/os_tmr.o
+                0x00013a78        0xa ./kernel/source/os_time.o
+ *fill*         0x00013a82        0x2 
+ .rodata        0x00013a84       0xa0 ./kernel/source/os_tmr.o
  .rodata.__func__.9058
-                0x00013bf4        0xc ./kernel/source/os_tmr.o
+                0x00013b24        0xc ./kernel/source/os_tmr.o
  .rodata.__func__.9128
-                0x00013c00        0xb ./kernel/source/os_tmr.o
- *fill*         0x00013c0b        0x1 
- .rodata        0x00013c0c      0x143 ./service/sl_sleeptimer_hal_rtcc.o
- *fill*         0x00013d4f        0x1 
- .rodata        0x00013d50       0x64 ./src/buttons.o
- .rodata        0x00013db4      0x1b3 ./src/ex_main.o
- *fill*         0x00013f67        0x1 
+                0x00013b30        0xb ./kernel/source/os_tmr.o
+ *fill*         0x00013b3b        0x1 
+ .rodata        0x00013b3c      0x143 ./service/sl_sleeptimer_hal_rtcc.o
+ *fill*         0x00013c7f        0x1 
+ .rodata        0x00013c80       0x64 ./src/buttons.o
+ .rodata        0x00013ce4      0x200 ./src/ex_main.o
  .rodata._global_impure_ptr
-                0x00013f68        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-impure.o)
-                0x00013f68                _global_impure_ptr
+                0x00013ee4        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-impure.o)
+                0x00013ee4                _global_impure_ptr
  .rodata.__sf_fake_stderr
-                0x00013f6c       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
-                0x00013f6c                __sf_fake_stderr
+                0x00013ee8       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
+                0x00013ee8                __sf_fake_stderr
  .rodata.__sf_fake_stdin
-                0x00013f8c       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
-                0x00013f8c                __sf_fake_stdin
+                0x00013f08       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
+                0x00013f08                __sf_fake_stdin
  .rodata.__sf_fake_stdout
-                0x00013fac       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
-                0x00013fac                __sf_fake_stdout
+                0x00013f28       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
+                0x00013f28                __sf_fake_stdout
  .rodata._svfprintf_r.str1.1
-                0x00013fcc       0x11 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00013f48       0x11 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x00013fdd       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00013f59       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
  *(.eh_frame*)
- *fill*         0x00013fff        0x1 
- .eh_frame      0x00014000        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
- .eh_frame      0x00014000        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtend.o
+ *fill*         0x00013f7b        0x1 
+ .eh_frame      0x00013f7c        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
+ .eh_frame      0x00013f7c        0x4 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtend.o
 
-.glue_7         0x00014004        0x0
- .glue_7        0x00014004        0x0 linker stubs
+.glue_7         0x00013f80        0x0
+ .glue_7        0x00013f80        0x0 linker stubs
 
-.glue_7t        0x00014004        0x0
- .glue_7t       0x00014004        0x0 linker stubs
+.glue_7t        0x00013f80        0x0
+ .glue_7t       0x00013f80        0x0 linker stubs
 
-.vfp11_veneer   0x00014004        0x0
- .vfp11_veneer  0x00014004        0x0 linker stubs
+.vfp11_veneer   0x00013f80        0x0
+ .vfp11_veneer  0x00013f80        0x0 linker stubs
 
-.v4_bx          0x00014004        0x0
- .v4_bx         0x00014004        0x0 linker stubs
+.v4_bx          0x00013f80        0x0
+ .v4_bx         0x00013f80        0x0 linker stubs
 
-.iplt           0x00014004        0x0
- .iplt          0x00014004        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
+.iplt           0x00013f80        0x0
+ .iplt          0x00013f80        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00014004                __exidx_start = .
+                0x00013f80                __exidx_start = .
 
-.ARM.exidx      0x00014004        0x8
+.ARM.exidx      0x00013f80        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x00014004        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp/crt0.o
- .ARM.exidx     0x0001400c        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_udivmoddi4.o)
+ .ARM.exidx     0x00013f80        0x8 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp/crt0.o
+ .ARM.exidx     0x00013f88        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_udivmoddi4.o)
                                   0x8 (size before relaxing)
-                0x0001400c                __exidx_end = .
-                0x0001400c                __etext = .
+                0x00013f88                __exidx_end = .
+                0x00013f88                __etext = .
 
-.rel.dyn        0x0001400c        0x0
- .rel.iplt      0x0001400c        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
+.rel.dyn        0x00013f88        0x0
+ .rel.iplt      0x00013f88        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
 
-.data           0x20000000      0x138 load address 0x0001400c
+.data           0x20000000      0x138 load address 0x00013f88
                 0x20000000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -18813,10 +18820,10 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
                 0x20000138                . = ALIGN (0x4)
                 0x20000138                __data_end__ = .
 
-.igot.plt       0x20000138        0x0 load address 0x00014144
+.igot.plt       0x20000138        0x0 load address 0x000140c0
  .igot.plt      0x20000138        0x0 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
 
-.bss            0x20000138     0xc618 load address 0x00014144
+.bss            0x20000138     0xc618 load address 0x000140c0
                 0x20000138                . = ALIGN (0x4)
                 0x20000138                __bss_start__ = .
  *(.bss*)
@@ -19193,151 +19200,149 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .ARM.attributes
                 0x000002f0       0x37 ./Graphics/glib_font_narrow_6x8.o
  .ARM.attributes
-                0x00000327       0x37 ./Graphics/glib_font_number_16x20.o
+                0x00000327       0x37 ./Graphics/glib_rectangle.o
  .ARM.attributes
-                0x0000035e       0x37 ./Graphics/glib_rectangle.o
+                0x0000035e       0x37 ./Graphics/glib_string.o
  .ARM.attributes
-                0x00000395       0x37 ./Graphics/glib_string.o
+                0x00000395       0x37 ./SystemView/SEGGER_RTT.o
  .ARM.attributes
-                0x000003cc       0x37 ./SystemView/SEGGER_RTT.o
+                0x000003cc       0x25 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
  .ARM.attributes
-                0x00000403       0x25 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
+                0x000003f1       0x37 ./SystemView/SEGGER_SYSVIEW.o
  .ARM.attributes
-                0x00000428       0x37 ./SystemView/SEGGER_SYSVIEW.o
+                0x00000428       0x37 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
  .ARM.attributes
-                0x0000045f       0x37 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+                0x0000045f       0x37 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
  .ARM.attributes
-                0x00000496       0x37 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+                0x00000496       0x37 ./common/source/collections/slist.o
  .ARM.attributes
-                0x000004cd       0x37 ./common/source/collections/slist.o
+                0x000004cd       0x37 ./common/source/common/common.o
  .ARM.attributes
-                0x00000504       0x37 ./common/source/common/common.o
+                0x00000504       0x37 ./common/source/kal/kal_kernel.o
  .ARM.attributes
-                0x0000053b       0x37 ./common/source/kal/kal_kernel.o
+                0x0000053b       0x37 ./common/source/lib/lib_math.o
  .ARM.attributes
-                0x00000572       0x37 ./common/source/lib/lib_math.o
+                0x00000572       0x37 ./common/source/lib/lib_mem.o
  .ARM.attributes
-                0x000005a9       0x37 ./common/source/lib/lib_mem.o
+                0x000005a9       0x37 ./common/source/platform_mgr/platform_mgr.o
  .ARM.attributes
-                0x000005e0       0x37 ./common/source/platform_mgr/platform_mgr.o
+                0x000005e0       0x37 ./common/source/rtos/rtos_err_str.o
  .ARM.attributes
-                0x00000617       0x37 ./common/source/rtos/rtos_err_str.o
+                0x00000617       0x37 ./cpu/source/cpu_core.o
  .ARM.attributes
-                0x0000064e       0x37 ./cpu/source/cpu_core.o
+                0x0000064e       0x37 ./emlib/em_acmp.o
  .ARM.attributes
-                0x00000685       0x37 ./emlib/em_acmp.o
+                0x00000685       0x37 ./emlib/em_assert.o
  .ARM.attributes
-                0x000006bc       0x37 ./emlib/em_assert.o
+                0x000006bc       0x37 ./emlib/em_cmu.o
  .ARM.attributes
-                0x000006f3       0x37 ./emlib/em_cmu.o
+                0x000006f3       0x37 ./emlib/em_core.o
  .ARM.attributes
-                0x0000072a       0x37 ./emlib/em_core.o
+                0x0000072a       0x37 ./emlib/em_emu.o
  .ARM.attributes
-                0x00000761       0x37 ./emlib/em_emu.o
+                0x00000761       0x37 ./emlib/em_gpio.o
  .ARM.attributes
-                0x00000798       0x37 ./emlib/em_gpio.o
+                0x00000798       0x37 ./emlib/em_prs.o
  .ARM.attributes
-                0x000007cf       0x37 ./emlib/em_prs.o
+                0x000007cf       0x37 ./emlib/em_rtcc.o
  .ARM.attributes
-                0x00000806       0x37 ./emlib/em_rtcc.o
+                0x00000806       0x37 ./emlib/em_usart.o
  .ARM.attributes
-                0x0000083d       0x37 ./emlib/em_usart.o
+                0x0000083d       0x37 ./kernel/source/os_cfg_app.o
  .ARM.attributes
-                0x00000874       0x37 ./kernel/source/os_cfg_app.o
+                0x00000874       0x37 ./kernel/source/os_core.o
  .ARM.attributes
-                0x000008ab       0x37 ./kernel/source/os_core.o
+                0x000008ab       0x37 ./kernel/source/os_dbg.o
  .ARM.attributes
-                0x000008e2       0x37 ./kernel/source/os_dbg.o
+                0x000008e2       0x37 ./kernel/source/os_flag.o
  .ARM.attributes
-                0x00000919       0x37 ./kernel/source/os_flag.o
+                0x00000919       0x37 ./kernel/source/os_msg.o
  .ARM.attributes
-                0x00000950       0x37 ./kernel/source/os_msg.o
+                0x00000950       0x37 ./kernel/source/os_mutex.o
  .ARM.attributes
-                0x00000987       0x37 ./kernel/source/os_mutex.o
+                0x00000987       0x37 ./kernel/source/os_prio.o
  .ARM.attributes
-                0x000009be       0x37 ./kernel/source/os_prio.o
+                0x000009be       0x37 ./kernel/source/os_sem.o
  .ARM.attributes
-                0x000009f5       0x37 ./kernel/source/os_sem.o
+                0x000009f5       0x37 ./kernel/source/os_stat.o
  .ARM.attributes
-                0x00000a2c       0x37 ./kernel/source/os_stat.o
+                0x00000a2c       0x37 ./kernel/source/os_task.o
  .ARM.attributes
-                0x00000a63       0x37 ./kernel/source/os_task.o
+                0x00000a63       0x37 ./kernel/source/os_time.o
  .ARM.attributes
-                0x00000a9a       0x37 ./kernel/source/os_time.o
+                0x00000a9a       0x37 ./kernel/source/os_tmr.o
  .ARM.attributes
-                0x00000ad1       0x37 ./kernel/source/os_tmr.o
+                0x00000ad1       0x37 ./kernel/source/os_var.o
  .ARM.attributes
-                0x00000b08       0x37 ./kernel/source/os_var.o
+                0x00000b08       0x25 ./ports/source/gnu/armv7m_cpu_a.o
  .ARM.attributes
-                0x00000b3f       0x25 ./ports/source/gnu/armv7m_cpu_a.o
+                0x00000b2d       0x25 ./ports/source/gnu/armv7m_os_cpu_a.o
  .ARM.attributes
-                0x00000b64       0x25 ./ports/source/gnu/armv7m_os_cpu_a.o
+                0x00000b52       0x37 ./ports/source/gnu/armv7m_os_cpu_c.o
  .ARM.attributes
-                0x00000b89       0x37 ./ports/source/gnu/armv7m_os_cpu_c.o
+                0x00000b89       0x37 ./service/sl_sleeptimer.o
  .ARM.attributes
-                0x00000bc0       0x37 ./service/sl_sleeptimer.o
+                0x00000bc0       0x37 ./service/sl_sleeptimer_hal_rtcc.o
  .ARM.attributes
-                0x00000bf7       0x37 ./service/sl_sleeptimer_hal_rtcc.o
+                0x00000bf7       0x37 ./src/buttons.o
  .ARM.attributes
-                0x00000c2e       0x37 ./src/buttons.o
+                0x00000c2e       0x37 ./src/cmu.o
  .ARM.attributes
-                0x00000c65       0x37 ./src/cmu.o
+                0x00000c65       0x37 ./src/ex_main.o
  .ARM.attributes
-                0x00000c9c       0x37 ./src/ex_main.o
+                0x00000c9c       0x37 ./src/gpio.o
  .ARM.attributes
-                0x00000cd3       0x37 ./src/gpio.o
+                0x00000cd3       0x37 ./src/slider.o
  .ARM.attributes
-                0x00000d0a       0x37 ./src/slider.o
+                0x00000d0a       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_aeabi_uldivmod.o)
  .ARM.attributes
-                0x00000d41       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_aeabi_uldivmod.o)
+                0x00000d2c       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_udivmoddi4.o)
  .ARM.attributes
-                0x00000d63       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_udivmoddi4.o)
+                0x00000d5e       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x00000d95       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp\libgcc.a(_dvmd_tls.o)
+                0x00000d80       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-exit.o)
  .ARM.attributes
-                0x00000db7       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-exit.o)
+                0x00000db2       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-impure.o)
  .ARM.attributes
-                0x00000de9       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-impure.o)
+                0x00000de4       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x00000e1b       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-init.o)
+                0x00000e16       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memcpy-stub.o)
  .ARM.attributes
-                0x00000e4d       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memcpy-stub.o)
+                0x00000e48       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memset.o)
  .ARM.attributes
-                0x00000e7f       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memset.o)
+                0x00000e7a       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-freer.o)
  .ARM.attributes
-                0x00000eb1       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-freer.o)
+                0x00000eac       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-mallocr.o)
  .ARM.attributes
-                0x00000ee3       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000ede       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sbrkr.o)
  .ARM.attributes
-                0x00000f15       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sbrkr.o)
+                0x00000f10       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sprintf.o)
  .ARM.attributes
-                0x00000f47       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-sprintf.o)
+                0x00000f42       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strcpy.o)
  .ARM.attributes
-                0x00000f79       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strcpy.o)
+                0x00000f74       0x1b c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strlen.o)
  .ARM.attributes
-                0x00000fab       0x1b c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-strlen.o)
+                0x00000f8f       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
  .ARM.attributes
-                0x00000fc6       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-findfp.o)
+                0x00000fc1       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-mlock.o)
  .ARM.attributes
-                0x00000ff8       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-mlock.o)
+                0x00000ff3       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
  .ARM.attributes
-                0x0000102a       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00001025       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .ARM.attributes
-                0x0000105c       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00001057       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-reent.o)
  .ARM.attributes
-                0x0000108e       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-reent.o)
+                0x00001089       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memchr.o)
  .ARM.attributes
-                0x000010c0       0x20 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memchr.o)
+                0x000010a9       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memmove.o)
  .ARM.attributes
-                0x000010e0       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-memmove.o)
+                0x000010db       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-reallocr.o)
  .ARM.attributes
-                0x00001112       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-reallocr.o)
+                0x0000110d       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-msizer.o)
  .ARM.attributes
-                0x00001144       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libc_nano.a(lib_a-nano-msizer.o)
+                0x0000113f       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtend.o
  .ARM.attributes
-                0x00001176       0x32 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtend.o
- .ARM.attributes
-                0x000011a8       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
+                0x00001171       0x22 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtn.o
 
 .comment        0x00000000       0x7e
  .comment       0x00000000       0x7e ./BSP/siliconlabs/generic/source/bsp_cpu.o
@@ -19353,7 +19358,6 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .comment       0x0000007e       0x7f ./Graphics/dmd_display.o
  .comment       0x0000007e       0x7f ./Graphics/glib.o
  .comment       0x0000007e       0x7f ./Graphics/glib_font_narrow_6x8.o
- .comment       0x0000007e       0x7f ./Graphics/glib_font_number_16x20.o
  .comment       0x0000007e       0x7f ./Graphics/glib_rectangle.o
  .comment       0x0000007e       0x7f ./Graphics/glib_string.o
  .comment       0x0000007e       0x7f ./SystemView/SEGGER_RTT.o
@@ -19399,7 +19403,7 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .comment       0x0000007e       0x7f ./src/gpio.o
  .comment       0x0000007e       0x7f ./src/slider.o
 
-.debug_info     0x00000000    0x4e592
+.debug_info     0x00000000    0x4db0f
  .debug_info    0x00000000      0x26c ./BSP/siliconlabs/generic/source/bsp_cpu.o
  .debug_info    0x0000026c     0x2514 ./BSP/siliconlabs/generic/source/bsp_os.o
  .debug_info    0x00002780       0x26 ./CMSIS/EFM32PG12B/startup_efm32pg12b.o
@@ -19413,56 +19417,55 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_info    0x0000b244     0x1211 ./Graphics/dmd_display.o
  .debug_info    0x0000c455     0x1167 ./Graphics/glib.o
  .debug_info    0x0000d5bc      0xac3 ./Graphics/glib_font_narrow_6x8.o
- .debug_info    0x0000e07f      0xac2 ./Graphics/glib_font_number_16x20.o
- .debug_info    0x0000eb41      0xd8d ./Graphics/glib_rectangle.o
- .debug_info    0x0000f8ce      0xdf1 ./Graphics/glib_string.o
- .debug_info    0x000106bf     0x18cf ./SystemView/SEGGER_RTT.o
- .debug_info    0x00011f8e       0x26 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
- .debug_info    0x00011fb4     0x3ec2 ./SystemView/SEGGER_SYSVIEW.o
- .debug_info    0x00015e76     0x1833 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
- .debug_info    0x000176a9     0x2251 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
- .debug_info    0x000198fa     0x1752 ./common/source/collections/slist.o
- .debug_info    0x0001b04c     0x1a2d ./common/source/common/common.o
- .debug_info    0x0001ca79     0x30f9 ./common/source/kal/kal_kernel.o
- .debug_info    0x0001fb72      0x294 ./common/source/lib/lib_math.o
- .debug_info    0x0001fe06     0x2b76 ./common/source/lib/lib_mem.o
- .debug_info    0x0002297c     0x2138 ./common/source/platform_mgr/platform_mgr.o
- .debug_info    0x00024ab4      0x1ae ./common/source/rtos/rtos_err_str.o
- .debug_info    0x00024c62     0x1d20 ./cpu/source/cpu_core.o
- .debug_info    0x00026982      0xf3b ./emlib/em_acmp.o
- .debug_info    0x000278bd       0x7e ./emlib/em_assert.o
- .debug_info    0x0002793b     0x24b2 ./emlib/em_cmu.o
- .debug_info    0x00029ded      0xdb3 ./emlib/em_core.o
- .debug_info    0x0002aba0     0x25b5 ./emlib/em_emu.o
- .debug_info    0x0002d155      0xad0 ./emlib/em_gpio.o
- .debug_info    0x0002dc25      0x691 ./emlib/em_prs.o
- .debug_info    0x0002e2b6      0xbc4 ./emlib/em_rtcc.o
- .debug_info    0x0002ee7a     0x1082 ./emlib/em_usart.o
- .debug_info    0x0002fefc     0x14e9 ./kernel/source/os_cfg_app.o
- .debug_info    0x000313e5     0x24da ./kernel/source/os_core.o
- .debug_info    0x000338bf     0x174e ./kernel/source/os_dbg.o
- .debug_info    0x0003500d     0x1ed0 ./kernel/source/os_flag.o
- .debug_info    0x00036edd     0x1b73 ./kernel/source/os_msg.o
- .debug_info    0x00038a50     0x1eb8 ./kernel/source/os_mutex.o
- .debug_info    0x0003a908     0x15b8 ./kernel/source/os_prio.o
- .debug_info    0x0003bec0     0x1db1 ./kernel/source/os_sem.o
- .debug_info    0x0003dc71     0x1b74 ./kernel/source/os_stat.o
- .debug_info    0x0003f7e5     0x25c6 ./kernel/source/os_task.o
- .debug_info    0x00041dab     0x1c7c ./kernel/source/os_time.o
- .debug_info    0x00043a27     0x1edc ./kernel/source/os_tmr.o
- .debug_info    0x00045903     0x144f ./kernel/source/os_var.o
- .debug_info    0x00046d52       0x26 ./ports/source/gnu/armv7m_cpu_a.o
- .debug_info    0x00046d78       0x26 ./ports/source/gnu/armv7m_os_cpu_a.o
- .debug_info    0x00046d9e     0x16f7 ./ports/source/gnu/armv7m_os_cpu_c.o
- .debug_info    0x00048495     0x144a ./service/sl_sleeptimer.o
- .debug_info    0x000498df      0xe70 ./service/sl_sleeptimer_hal_rtcc.o
- .debug_info    0x0004a74f      0x8a0 ./src/buttons.o
- .debug_info    0x0004afef      0x2e6 ./src/cmu.o
- .debug_info    0x0004b2d5     0x2fa3 ./src/ex_main.o
- .debug_info    0x0004e278      0x21b ./src/gpio.o
- .debug_info    0x0004e493       0xff ./src/slider.o
+ .debug_info    0x0000e07f      0xd8d ./Graphics/glib_rectangle.o
+ .debug_info    0x0000ee0c      0xdf1 ./Graphics/glib_string.o
+ .debug_info    0x0000fbfd     0x18cf ./SystemView/SEGGER_RTT.o
+ .debug_info    0x000114cc       0x26 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
+ .debug_info    0x000114f2     0x3ec2 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_info    0x000153b4     0x1833 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+ .debug_info    0x00016be7     0x2251 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+ .debug_info    0x00018e38     0x1752 ./common/source/collections/slist.o
+ .debug_info    0x0001a58a     0x1a2d ./common/source/common/common.o
+ .debug_info    0x0001bfb7     0x30f9 ./common/source/kal/kal_kernel.o
+ .debug_info    0x0001f0b0      0x294 ./common/source/lib/lib_math.o
+ .debug_info    0x0001f344     0x2b76 ./common/source/lib/lib_mem.o
+ .debug_info    0x00021eba     0x2138 ./common/source/platform_mgr/platform_mgr.o
+ .debug_info    0x00023ff2      0x1ae ./common/source/rtos/rtos_err_str.o
+ .debug_info    0x000241a0     0x1d20 ./cpu/source/cpu_core.o
+ .debug_info    0x00025ec0      0xf3b ./emlib/em_acmp.o
+ .debug_info    0x00026dfb       0x7e ./emlib/em_assert.o
+ .debug_info    0x00026e79     0x24b2 ./emlib/em_cmu.o
+ .debug_info    0x0002932b      0xdb3 ./emlib/em_core.o
+ .debug_info    0x0002a0de     0x25b5 ./emlib/em_emu.o
+ .debug_info    0x0002c693      0xad0 ./emlib/em_gpio.o
+ .debug_info    0x0002d163      0x691 ./emlib/em_prs.o
+ .debug_info    0x0002d7f4      0xbc4 ./emlib/em_rtcc.o
+ .debug_info    0x0002e3b8     0x1082 ./emlib/em_usart.o
+ .debug_info    0x0002f43a     0x14e9 ./kernel/source/os_cfg_app.o
+ .debug_info    0x00030923     0x24da ./kernel/source/os_core.o
+ .debug_info    0x00032dfd     0x174e ./kernel/source/os_dbg.o
+ .debug_info    0x0003454b     0x1ed0 ./kernel/source/os_flag.o
+ .debug_info    0x0003641b     0x1b73 ./kernel/source/os_msg.o
+ .debug_info    0x00037f8e     0x1eb8 ./kernel/source/os_mutex.o
+ .debug_info    0x00039e46     0x15b8 ./kernel/source/os_prio.o
+ .debug_info    0x0003b3fe     0x1db1 ./kernel/source/os_sem.o
+ .debug_info    0x0003d1af     0x1b74 ./kernel/source/os_stat.o
+ .debug_info    0x0003ed23     0x25c6 ./kernel/source/os_task.o
+ .debug_info    0x000412e9     0x1c7c ./kernel/source/os_time.o
+ .debug_info    0x00042f65     0x1edc ./kernel/source/os_tmr.o
+ .debug_info    0x00044e41     0x144f ./kernel/source/os_var.o
+ .debug_info    0x00046290       0x26 ./ports/source/gnu/armv7m_cpu_a.o
+ .debug_info    0x000462b6       0x26 ./ports/source/gnu/armv7m_os_cpu_a.o
+ .debug_info    0x000462dc     0x16f7 ./ports/source/gnu/armv7m_os_cpu_c.o
+ .debug_info    0x000479d3     0x144a ./service/sl_sleeptimer.o
+ .debug_info    0x00048e1d      0xe70 ./service/sl_sleeptimer_hal_rtcc.o
+ .debug_info    0x00049c8d      0x8a0 ./src/buttons.o
+ .debug_info    0x0004a52d      0x2e6 ./src/cmu.o
+ .debug_info    0x0004a813     0x2fe2 ./src/ex_main.o
+ .debug_info    0x0004d7f5      0x21b ./src/gpio.o
+ .debug_info    0x0004da10       0xff ./src/slider.o
 
-.debug_abbrev   0x00000000     0x7756
+.debug_abbrev   0x00000000     0x75bf
  .debug_abbrev  0x00000000      0x119 ./BSP/siliconlabs/generic/source/bsp_cpu.o
  .debug_abbrev  0x00000119      0x1fe ./BSP/siliconlabs/generic/source/bsp_os.o
  .debug_abbrev  0x00000317       0x14 ./CMSIS/EFM32PG12B/startup_efm32pg12b.o
@@ -19476,54 +19479,53 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_abbrev  0x00001336      0x28a ./Graphics/dmd_display.o
  .debug_abbrev  0x000015c0      0x2b4 ./Graphics/glib.o
  .debug_abbrev  0x00001874      0x1a0 ./Graphics/glib_font_narrow_6x8.o
- .debug_abbrev  0x00001a14      0x197 ./Graphics/glib_font_number_16x20.o
- .debug_abbrev  0x00001bab      0x20f ./Graphics/glib_rectangle.o
- .debug_abbrev  0x00001dba      0x1d9 ./Graphics/glib_string.o
- .debug_abbrev  0x00001f93      0x2a7 ./SystemView/SEGGER_RTT.o
- .debug_abbrev  0x0000223a       0x14 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
- .debug_abbrev  0x0000224e      0x305 ./SystemView/SEGGER_SYSVIEW.o
- .debug_abbrev  0x00002553      0x198 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
- .debug_abbrev  0x000026eb      0x281 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
- .debug_abbrev  0x0000296c      0x1b6 ./common/source/collections/slist.o
- .debug_abbrev  0x00002b22      0x1c7 ./common/source/common/common.o
- .debug_abbrev  0x00002ce9      0x2c9 ./common/source/kal/kal_kernel.o
- .debug_abbrev  0x00002fb2      0x131 ./common/source/lib/lib_math.o
- .debug_abbrev  0x000030e3      0x300 ./common/source/lib/lib_mem.o
- .debug_abbrev  0x000033e3      0x282 ./common/source/platform_mgr/platform_mgr.o
- .debug_abbrev  0x00003665       0xb2 ./common/source/rtos/rtos_err_str.o
- .debug_abbrev  0x00003717      0x25c ./cpu/source/cpu_core.o
- .debug_abbrev  0x00003973      0x239 ./emlib/em_acmp.o
- .debug_abbrev  0x00003bac       0x68 ./emlib/em_assert.o
- .debug_abbrev  0x00003c14      0x354 ./emlib/em_cmu.o
- .debug_abbrev  0x00003f68      0x28f ./emlib/em_core.o
- .debug_abbrev  0x000041f7      0x375 ./emlib/em_emu.o
- .debug_abbrev  0x0000456c      0x233 ./emlib/em_gpio.o
- .debug_abbrev  0x0000479f      0x1f6 ./emlib/em_prs.o
- .debug_abbrev  0x00004995      0x1f4 ./emlib/em_rtcc.o
- .debug_abbrev  0x00004b89      0x239 ./emlib/em_usart.o
- .debug_abbrev  0x00004dc2      0x14c ./kernel/source/os_cfg_app.o
- .debug_abbrev  0x00004f0e      0x285 ./kernel/source/os_core.o
- .debug_abbrev  0x00005193      0x15f ./kernel/source/os_dbg.o
- .debug_abbrev  0x000052f2      0x24e ./kernel/source/os_flag.o
- .debug_abbrev  0x00005540      0x1c2 ./kernel/source/os_msg.o
- .debug_abbrev  0x00005702      0x26a ./kernel/source/os_mutex.o
- .debug_abbrev  0x0000596c      0x19e ./kernel/source/os_prio.o
- .debug_abbrev  0x00005b0a      0x24e ./kernel/source/os_sem.o
- .debug_abbrev  0x00005d58      0x1e9 ./kernel/source/os_stat.o
- .debug_abbrev  0x00005f41      0x26f ./kernel/source/os_task.o
- .debug_abbrev  0x000061b0      0x21b ./kernel/source/os_time.o
- .debug_abbrev  0x000063cb      0x257 ./kernel/source/os_tmr.o
- .debug_abbrev  0x00006622      0x132 ./kernel/source/os_var.o
- .debug_abbrev  0x00006754       0x14 ./ports/source/gnu/armv7m_cpu_a.o
- .debug_abbrev  0x00006768       0x14 ./ports/source/gnu/armv7m_os_cpu_a.o
- .debug_abbrev  0x0000677c      0x21d ./ports/source/gnu/armv7m_os_cpu_c.o
- .debug_abbrev  0x00006999      0x2eb ./service/sl_sleeptimer.o
- .debug_abbrev  0x00006c84      0x2cf ./service/sl_sleeptimer_hal_rtcc.o
- .debug_abbrev  0x00006f53      0x25a ./src/buttons.o
- .debug_abbrev  0x000071ad       0xef ./src/cmu.o
- .debug_abbrev  0x0000729c      0x332 ./src/ex_main.o
- .debug_abbrev  0x000075ce       0xe6 ./src/gpio.o
- .debug_abbrev  0x000076b4       0xa2 ./src/slider.o
+ .debug_abbrev  0x00001a14      0x20f ./Graphics/glib_rectangle.o
+ .debug_abbrev  0x00001c23      0x1d9 ./Graphics/glib_string.o
+ .debug_abbrev  0x00001dfc      0x2a7 ./SystemView/SEGGER_RTT.o
+ .debug_abbrev  0x000020a3       0x14 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
+ .debug_abbrev  0x000020b7      0x305 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_abbrev  0x000023bc      0x198 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+ .debug_abbrev  0x00002554      0x281 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+ .debug_abbrev  0x000027d5      0x1b6 ./common/source/collections/slist.o
+ .debug_abbrev  0x0000298b      0x1c7 ./common/source/common/common.o
+ .debug_abbrev  0x00002b52      0x2c9 ./common/source/kal/kal_kernel.o
+ .debug_abbrev  0x00002e1b      0x131 ./common/source/lib/lib_math.o
+ .debug_abbrev  0x00002f4c      0x300 ./common/source/lib/lib_mem.o
+ .debug_abbrev  0x0000324c      0x282 ./common/source/platform_mgr/platform_mgr.o
+ .debug_abbrev  0x000034ce       0xb2 ./common/source/rtos/rtos_err_str.o
+ .debug_abbrev  0x00003580      0x25c ./cpu/source/cpu_core.o
+ .debug_abbrev  0x000037dc      0x239 ./emlib/em_acmp.o
+ .debug_abbrev  0x00003a15       0x68 ./emlib/em_assert.o
+ .debug_abbrev  0x00003a7d      0x354 ./emlib/em_cmu.o
+ .debug_abbrev  0x00003dd1      0x28f ./emlib/em_core.o
+ .debug_abbrev  0x00004060      0x375 ./emlib/em_emu.o
+ .debug_abbrev  0x000043d5      0x233 ./emlib/em_gpio.o
+ .debug_abbrev  0x00004608      0x1f6 ./emlib/em_prs.o
+ .debug_abbrev  0x000047fe      0x1f4 ./emlib/em_rtcc.o
+ .debug_abbrev  0x000049f2      0x239 ./emlib/em_usart.o
+ .debug_abbrev  0x00004c2b      0x14c ./kernel/source/os_cfg_app.o
+ .debug_abbrev  0x00004d77      0x285 ./kernel/source/os_core.o
+ .debug_abbrev  0x00004ffc      0x15f ./kernel/source/os_dbg.o
+ .debug_abbrev  0x0000515b      0x24e ./kernel/source/os_flag.o
+ .debug_abbrev  0x000053a9      0x1c2 ./kernel/source/os_msg.o
+ .debug_abbrev  0x0000556b      0x26a ./kernel/source/os_mutex.o
+ .debug_abbrev  0x000057d5      0x19e ./kernel/source/os_prio.o
+ .debug_abbrev  0x00005973      0x24e ./kernel/source/os_sem.o
+ .debug_abbrev  0x00005bc1      0x1e9 ./kernel/source/os_stat.o
+ .debug_abbrev  0x00005daa      0x26f ./kernel/source/os_task.o
+ .debug_abbrev  0x00006019      0x21b ./kernel/source/os_time.o
+ .debug_abbrev  0x00006234      0x257 ./kernel/source/os_tmr.o
+ .debug_abbrev  0x0000648b      0x132 ./kernel/source/os_var.o
+ .debug_abbrev  0x000065bd       0x14 ./ports/source/gnu/armv7m_cpu_a.o
+ .debug_abbrev  0x000065d1       0x14 ./ports/source/gnu/armv7m_os_cpu_a.o
+ .debug_abbrev  0x000065e5      0x21d ./ports/source/gnu/armv7m_os_cpu_c.o
+ .debug_abbrev  0x00006802      0x2eb ./service/sl_sleeptimer.o
+ .debug_abbrev  0x00006aed      0x2cf ./service/sl_sleeptimer_hal_rtcc.o
+ .debug_abbrev  0x00006dbc      0x25a ./src/buttons.o
+ .debug_abbrev  0x00007016       0xef ./src/cmu.o
+ .debug_abbrev  0x00007105      0x332 ./src/ex_main.o
+ .debug_abbrev  0x00007437       0xe6 ./src/gpio.o
+ .debug_abbrev  0x0000751d       0xa2 ./src/slider.o
 
 .debug_loc      0x00000000     0xeff8
  .debug_loc     0x00000000       0xfc ./BSP/siliconlabs/generic/source/bsp_cpu.o
@@ -19580,7 +19582,7 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_loc     0x0000ef50       0x2c ./src/gpio.o
  .debug_loc     0x0000ef7c       0x7c ./src/slider.o
 
-.debug_aranges  0x00000000     0x1db0
+.debug_aranges  0x00000000     0x1d98
  .debug_aranges
                 0x00000000       0x30 ./BSP/siliconlabs/generic/source/bsp_cpu.o
  .debug_aranges
@@ -19608,101 +19610,99 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_aranges
                 0x00000478       0x18 ./Graphics/glib_font_narrow_6x8.o
  .debug_aranges
-                0x00000490       0x18 ./Graphics/glib_font_number_16x20.o
+                0x00000490       0x38 ./Graphics/glib_rectangle.o
  .debug_aranges
-                0x000004a8       0x38 ./Graphics/glib_rectangle.o
+                0x000004c8       0x30 ./Graphics/glib_string.o
  .debug_aranges
-                0x000004e0       0x30 ./Graphics/glib_string.o
+                0x000004f8      0x108 ./SystemView/SEGGER_RTT.o
  .debug_aranges
-                0x00000510      0x108 ./SystemView/SEGGER_RTT.o
+                0x00000600       0x20 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
  .debug_aranges
-                0x00000618       0x20 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
+                0x00000620      0x260 ./SystemView/SEGGER_SYSVIEW.o
  .debug_aranges
-                0x00000638      0x260 ./SystemView/SEGGER_SYSVIEW.o
+                0x00000880       0x28 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
  .debug_aranges
-                0x00000898       0x28 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+                0x000008a8       0x80 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
  .debug_aranges
-                0x000008c0       0x80 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+                0x00000928       0x50 ./common/source/collections/slist.o
  .debug_aranges
-                0x00000940       0x50 ./common/source/collections/slist.o
+                0x00000978       0x30 ./common/source/common/common.o
  .debug_aranges
-                0x00000990       0x30 ./common/source/common/common.o
+                0x000009a8      0x148 ./common/source/kal/kal_kernel.o
  .debug_aranges
-                0x000009c0      0x148 ./common/source/kal/kal_kernel.o
+                0x00000af0       0x38 ./common/source/lib/lib_math.o
  .debug_aranges
-                0x00000b08       0x38 ./common/source/lib/lib_math.o
+                0x00000b28       0xd8 ./common/source/lib/lib_mem.o
  .debug_aranges
-                0x00000b40       0xd8 ./common/source/lib/lib_mem.o
+                0x00000c00       0x70 ./common/source/platform_mgr/platform_mgr.o
  .debug_aranges
-                0x00000c18       0x70 ./common/source/platform_mgr/platform_mgr.o
+                0x00000c70       0x18 ./common/source/rtos/rtos_err_str.o
  .debug_aranges
-                0x00000c88       0x18 ./common/source/rtos/rtos_err_str.o
+                0x00000c88       0xa0 ./cpu/source/cpu_core.o
  .debug_aranges
-                0x00000ca0       0xa0 ./cpu/source/cpu_core.o
+                0x00000d28       0x90 ./emlib/em_acmp.o
  .debug_aranges
-                0x00000d40       0x90 ./emlib/em_acmp.o
+                0x00000db8       0x20 ./emlib/em_assert.o
  .debug_aranges
-                0x00000dd0       0x20 ./emlib/em_assert.o
+                0x00000dd8      0x1c8 ./emlib/em_cmu.o
  .debug_aranges
-                0x00000df0      0x1c8 ./emlib/em_cmu.o
+                0x00000fa0       0xe8 ./emlib/em_core.o
  .debug_aranges
-                0x00000fb8       0xe8 ./emlib/em_core.o
+                0x00001088      0x1e0 ./emlib/em_emu.o
  .debug_aranges
-                0x000010a0      0x1e0 ./emlib/em_emu.o
+                0x00001268       0x88 ./emlib/em_gpio.o
  .debug_aranges
-                0x00001280       0x88 ./emlib/em_gpio.o
+                0x000012f0       0x50 ./emlib/em_prs.o
  .debug_aranges
-                0x00001308       0x50 ./emlib/em_prs.o
+                0x00001340       0x50 ./emlib/em_rtcc.o
  .debug_aranges
-                0x00001358       0x50 ./emlib/em_rtcc.o
+                0x00001390       0xd0 ./emlib/em_usart.o
  .debug_aranges
-                0x000013a8       0xd0 ./emlib/em_usart.o
+                0x00001460       0x20 ./kernel/source/os_cfg_app.o
  .debug_aranges
-                0x00001478       0x20 ./kernel/source/os_cfg_app.o
+                0x00001480      0x148 ./kernel/source/os_core.o
  .debug_aranges
-                0x00001498      0x148 ./kernel/source/os_core.o
+                0x000015c8       0x20 ./kernel/source/os_dbg.o
  .debug_aranges
-                0x000015e0       0x20 ./kernel/source/os_dbg.o
+                0x000015e8       0x70 ./kernel/source/os_flag.o
  .debug_aranges
-                0x00001600       0x70 ./kernel/source/os_flag.o
+                0x00001658       0x40 ./kernel/source/os_msg.o
  .debug_aranges
-                0x00001670       0x40 ./kernel/source/os_msg.o
+                0x00001698       0x78 ./kernel/source/os_mutex.o
  .debug_aranges
-                0x000016b0       0x78 ./kernel/source/os_mutex.o
+                0x00001710       0x38 ./kernel/source/os_prio.o
  .debug_aranges
-                0x00001728       0x38 ./kernel/source/os_prio.o
+                0x00001748       0x60 ./kernel/source/os_sem.o
  .debug_aranges
-                0x00001760       0x60 ./kernel/source/os_sem.o
+                0x000017a8       0x48 ./kernel/source/os_stat.o
  .debug_aranges
-                0x000017c0       0x48 ./kernel/source/os_stat.o
+                0x000017f0       0xf0 ./kernel/source/os_task.o
  .debug_aranges
-                0x00001808       0xf0 ./kernel/source/os_task.o
+                0x000018e0       0x40 ./kernel/source/os_time.o
  .debug_aranges
-                0x000018f8       0x40 ./kernel/source/os_time.o
+                0x00001920       0x90 ./kernel/source/os_tmr.o
  .debug_aranges
-                0x00001938       0x90 ./kernel/source/os_tmr.o
+                0x000019b0       0x18 ./kernel/source/os_var.o
  .debug_aranges
-                0x000019c8       0x18 ./kernel/source/os_var.o
+                0x000019c8       0x20 ./ports/source/gnu/armv7m_cpu_a.o
  .debug_aranges
-                0x000019e0       0x20 ./ports/source/gnu/armv7m_cpu_a.o
+                0x000019e8       0x20 ./ports/source/gnu/armv7m_os_cpu_a.o
  .debug_aranges
-                0x00001a00       0x20 ./ports/source/gnu/armv7m_os_cpu_a.o
+                0x00001a08       0x60 ./ports/source/gnu/armv7m_os_cpu_c.o
  .debug_aranges
-                0x00001a20       0x60 ./ports/source/gnu/armv7m_os_cpu_c.o
+                0x00001a68       0xf0 ./service/sl_sleeptimer.o
  .debug_aranges
-                0x00001a80       0xf0 ./service/sl_sleeptimer.o
+                0x00001b58       0xd8 ./service/sl_sleeptimer_hal_rtcc.o
  .debug_aranges
-                0x00001b70       0xd8 ./service/sl_sleeptimer_hal_rtcc.o
+                0x00001c30       0x58 ./src/buttons.o
  .debug_aranges
-                0x00001c48       0x58 ./src/buttons.o
+                0x00001c88       0x20 ./src/cmu.o
  .debug_aranges
-                0x00001ca0       0x20 ./src/cmu.o
+                0x00001ca8       0xa8 ./src/ex_main.o
  .debug_aranges
-                0x00001cc0       0xa8 ./src/ex_main.o
+                0x00001d50       0x20 ./src/gpio.o
  .debug_aranges
-                0x00001d68       0x20 ./src/gpio.o
- .debug_aranges
-                0x00001d88       0x28 ./src/slider.o
+                0x00001d70       0x28 ./src/slider.o
 
 .debug_ranges   0x00000000     0x1998
  .debug_ranges  0x00000000       0x20 ./BSP/siliconlabs/generic/source/bsp_cpu.o
@@ -19759,7 +19759,7 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_ranges  0x00001970       0x10 ./src/gpio.o
  .debug_ranges  0x00001980       0x18 ./src/slider.o
 
-.debug_macro    0x00000000    0x117a0
+.debug_macro    0x00000000    0x11644
  .debug_macro   0x00000000      0x347 ./BSP/siliconlabs/generic/source/bsp_cpu.o
  .debug_macro   0x00000347       0x10 ./BSP/siliconlabs/generic/source/bsp_cpu.o
  .debug_macro   0x00000357       0x46 ./BSP/siliconlabs/generic/source/bsp_cpu.o
@@ -19855,76 +19855,75 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_macro   0x0000607e       0x51 ./Graphics/glib.o
  .debug_macro   0x000060cf      0x15c ./Graphics/glib_font_narrow_6x8.o
  .debug_macro   0x0000622b       0x7c ./Graphics/glib_font_narrow_6x8.o
- .debug_macro   0x000062a7      0x15c ./Graphics/glib_font_number_16x20.o
- .debug_macro   0x00006403      0x156 ./Graphics/glib_rectangle.o
- .debug_macro   0x00006559      0x172 ./Graphics/glib_string.o
- .debug_macro   0x000066cb      0x47f ./SystemView/SEGGER_RTT.o
- .debug_macro   0x00006b4a       0x34 ./SystemView/SEGGER_RTT.o
- .debug_macro   0x00006b7e      0x11c ./SystemView/SEGGER_RTT.o
- .debug_macro   0x00006c9a      0x4d3 ./SystemView/SEGGER_SYSVIEW.o
- .debug_macro   0x0000716d       0x3a ./SystemView/SEGGER_SYSVIEW.o
- .debug_macro   0x000071a7      0x1d8 ./SystemView/SEGGER_SYSVIEW.o
- .debug_macro   0x0000737f       0x61 ./SystemView/SEGGER_SYSVIEW.o
- .debug_macro   0x000073e0       0x35 ./SystemView/SEGGER_SYSVIEW.o
- .debug_macro   0x00007415       0x10 ./SystemView/SEGGER_SYSVIEW.o
- .debug_macro   0x00007425      0x444 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
- .debug_macro   0x00007869      0x4ce ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
- .debug_macro   0x00007d37      0x496 ./common/source/collections/slist.o
- .debug_macro   0x000081cd      0x49d ./common/source/common/common.o
- .debug_macro   0x0000866a       0x48 ./common/source/common/common.o
- .debug_macro   0x000086b2      0x4a3 ./common/source/kal/kal_kernel.o
- .debug_macro   0x00008b55      0x32f ./common/source/lib/lib_math.o
- .debug_macro   0x00008e84       0x30 ./common/source/lib/lib_math.o
- .debug_macro   0x00008eb4      0x49d ./common/source/lib/lib_mem.o
- .debug_macro   0x00009351      0x4c0 ./common/source/platform_mgr/platform_mgr.o
- .debug_macro   0x00009811      0x35f ./common/source/rtos/rtos_err_str.o
- .debug_macro   0x00009b70       0x10 ./common/source/rtos/rtos_err_str.o
- .debug_macro   0x00009b80       0x18 ./common/source/rtos/rtos_err_str.o
- .debug_macro   0x00009b98      0x4a5 ./cpu/source/cpu_core.o
- .debug_macro   0x0000a03d       0x10 ./cpu/source/cpu_core.o
- .debug_macro   0x0000a04d      0x2b7 ./emlib/em_acmp.o
- .debug_macro   0x0000a304       0x23 ./emlib/em_assert.o
- .debug_macro   0x0000a327      0x3a9 ./emlib/em_cmu.o
- .debug_macro   0x0000a6d0       0x25 ./emlib/em_cmu.o
- .debug_macro   0x0000a6f5       0xee ./emlib/em_cmu.o
- .debug_macro   0x0000a7e3      0x2ae ./emlib/em_core.o
- .debug_macro   0x0000aa91      0x3c3 ./emlib/em_emu.o
- .debug_macro   0x0000ae54       0x81 ./emlib/em_emu.o
- .debug_macro   0x0000aed5      0x295 ./emlib/em_gpio.o
- .debug_macro   0x0000b16a      0x2a5 ./emlib/em_prs.o
- .debug_macro   0x0000b40f      0x289 ./emlib/em_rtcc.o
- .debug_macro   0x0000b698       0x87 ./emlib/em_rtcc.o
- .debug_macro   0x0000b71f      0x2dd ./emlib/em_usart.o
- .debug_macro   0x0000b9fc       0xeb ./emlib/em_usart.o
- .debug_macro   0x0000bae7      0x3d8 ./kernel/source/os_cfg_app.o
- .debug_macro   0x0000bebf      0x4f5 ./kernel/source/os_core.o
- .debug_macro   0x0000c3b4       0x22 ./kernel/source/os_core.o
- .debug_macro   0x0000c3d6       0x89 ./kernel/source/os_core.o
- .debug_macro   0x0000c45f      0x3de ./kernel/source/os_dbg.o
- .debug_macro   0x0000c83d      0x4e0 ./kernel/source/os_flag.o
- .debug_macro   0x0000cd1d      0x4e0 ./kernel/source/os_msg.o
- .debug_macro   0x0000d1fd      0x4e0 ./kernel/source/os_mutex.o
- .debug_macro   0x0000d6dd      0x4e0 ./kernel/source/os_prio.o
- .debug_macro   0x0000dbbd      0x4e0 ./kernel/source/os_sem.o
- .debug_macro   0x0000e09d      0x4e0 ./kernel/source/os_stat.o
- .debug_macro   0x0000e57d      0x4e0 ./kernel/source/os_task.o
- .debug_macro   0x0000ea5d      0x4e0 ./kernel/source/os_time.o
- .debug_macro   0x0000ef3d      0x4e0 ./kernel/source/os_tmr.o
- .debug_macro   0x0000f41d      0x3de ./kernel/source/os_var.o
- .debug_macro   0x0000f7fb      0x2f8 ./kernel/source/os_var.o
- .debug_macro   0x0000faf3      0x4ee ./ports/source/gnu/armv7m_os_cpu_c.o
- .debug_macro   0x0000ffe1       0x2e ./ports/source/gnu/armv7m_os_cpu_c.o
- .debug_macro   0x0001000f      0x441 ./service/sl_sleeptimer.o
- .debug_macro   0x00010450       0x1c ./service/sl_sleeptimer.o
- .debug_macro   0x0001046c      0x302 ./service/sl_sleeptimer_hal_rtcc.o
- .debug_macro   0x0001076e      0x2c7 ./src/buttons.o
- .debug_macro   0x00010a35      0x29f ./src/cmu.o
- .debug_macro   0x00010cd4      0x757 ./src/ex_main.o
- .debug_macro   0x0001142b       0x26 ./src/ex_main.o
- .debug_macro   0x00011451      0x2c6 ./src/gpio.o
- .debug_macro   0x00011717       0x89 ./src/slider.o
+ .debug_macro   0x000062a7      0x156 ./Graphics/glib_rectangle.o
+ .debug_macro   0x000063fd      0x172 ./Graphics/glib_string.o
+ .debug_macro   0x0000656f      0x47f ./SystemView/SEGGER_RTT.o
+ .debug_macro   0x000069ee       0x34 ./SystemView/SEGGER_RTT.o
+ .debug_macro   0x00006a22      0x11c ./SystemView/SEGGER_RTT.o
+ .debug_macro   0x00006b3e      0x4d3 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_macro   0x00007011       0x3a ./SystemView/SEGGER_SYSVIEW.o
+ .debug_macro   0x0000704b      0x1d8 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_macro   0x00007223       0x61 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_macro   0x00007284       0x35 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_macro   0x000072b9       0x10 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_macro   0x000072c9      0x444 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+ .debug_macro   0x0000770d      0x4ce ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+ .debug_macro   0x00007bdb      0x496 ./common/source/collections/slist.o
+ .debug_macro   0x00008071      0x49d ./common/source/common/common.o
+ .debug_macro   0x0000850e       0x48 ./common/source/common/common.o
+ .debug_macro   0x00008556      0x4a3 ./common/source/kal/kal_kernel.o
+ .debug_macro   0x000089f9      0x32f ./common/source/lib/lib_math.o
+ .debug_macro   0x00008d28       0x30 ./common/source/lib/lib_math.o
+ .debug_macro   0x00008d58      0x49d ./common/source/lib/lib_mem.o
+ .debug_macro   0x000091f5      0x4c0 ./common/source/platform_mgr/platform_mgr.o
+ .debug_macro   0x000096b5      0x35f ./common/source/rtos/rtos_err_str.o
+ .debug_macro   0x00009a14       0x10 ./common/source/rtos/rtos_err_str.o
+ .debug_macro   0x00009a24       0x18 ./common/source/rtos/rtos_err_str.o
+ .debug_macro   0x00009a3c      0x4a5 ./cpu/source/cpu_core.o
+ .debug_macro   0x00009ee1       0x10 ./cpu/source/cpu_core.o
+ .debug_macro   0x00009ef1      0x2b7 ./emlib/em_acmp.o
+ .debug_macro   0x0000a1a8       0x23 ./emlib/em_assert.o
+ .debug_macro   0x0000a1cb      0x3a9 ./emlib/em_cmu.o
+ .debug_macro   0x0000a574       0x25 ./emlib/em_cmu.o
+ .debug_macro   0x0000a599       0xee ./emlib/em_cmu.o
+ .debug_macro   0x0000a687      0x2ae ./emlib/em_core.o
+ .debug_macro   0x0000a935      0x3c3 ./emlib/em_emu.o
+ .debug_macro   0x0000acf8       0x81 ./emlib/em_emu.o
+ .debug_macro   0x0000ad79      0x295 ./emlib/em_gpio.o
+ .debug_macro   0x0000b00e      0x2a5 ./emlib/em_prs.o
+ .debug_macro   0x0000b2b3      0x289 ./emlib/em_rtcc.o
+ .debug_macro   0x0000b53c       0x87 ./emlib/em_rtcc.o
+ .debug_macro   0x0000b5c3      0x2dd ./emlib/em_usart.o
+ .debug_macro   0x0000b8a0       0xeb ./emlib/em_usart.o
+ .debug_macro   0x0000b98b      0x3d8 ./kernel/source/os_cfg_app.o
+ .debug_macro   0x0000bd63      0x4f5 ./kernel/source/os_core.o
+ .debug_macro   0x0000c258       0x22 ./kernel/source/os_core.o
+ .debug_macro   0x0000c27a       0x89 ./kernel/source/os_core.o
+ .debug_macro   0x0000c303      0x3de ./kernel/source/os_dbg.o
+ .debug_macro   0x0000c6e1      0x4e0 ./kernel/source/os_flag.o
+ .debug_macro   0x0000cbc1      0x4e0 ./kernel/source/os_msg.o
+ .debug_macro   0x0000d0a1      0x4e0 ./kernel/source/os_mutex.o
+ .debug_macro   0x0000d581      0x4e0 ./kernel/source/os_prio.o
+ .debug_macro   0x0000da61      0x4e0 ./kernel/source/os_sem.o
+ .debug_macro   0x0000df41      0x4e0 ./kernel/source/os_stat.o
+ .debug_macro   0x0000e421      0x4e0 ./kernel/source/os_task.o
+ .debug_macro   0x0000e901      0x4e0 ./kernel/source/os_time.o
+ .debug_macro   0x0000ede1      0x4e0 ./kernel/source/os_tmr.o
+ .debug_macro   0x0000f2c1      0x3de ./kernel/source/os_var.o
+ .debug_macro   0x0000f69f      0x2f8 ./kernel/source/os_var.o
+ .debug_macro   0x0000f997      0x4ee ./ports/source/gnu/armv7m_os_cpu_c.o
+ .debug_macro   0x0000fe85       0x2e ./ports/source/gnu/armv7m_os_cpu_c.o
+ .debug_macro   0x0000feb3      0x441 ./service/sl_sleeptimer.o
+ .debug_macro   0x000102f4       0x1c ./service/sl_sleeptimer.o
+ .debug_macro   0x00010310      0x302 ./service/sl_sleeptimer_hal_rtcc.o
+ .debug_macro   0x00010612      0x2c7 ./src/buttons.o
+ .debug_macro   0x000108d9      0x29f ./src/cmu.o
+ .debug_macro   0x00010b78      0x757 ./src/ex_main.o
+ .debug_macro   0x000112cf       0x26 ./src/ex_main.o
+ .debug_macro   0x000112f5      0x2c6 ./src/gpio.o
+ .debug_macro   0x000115bb       0x89 ./src/slider.o
 
-.debug_line     0x00000000    0x35cc6
+.debug_line     0x00000000    0x358b4
  .debug_line    0x00000000      0xb8d ./BSP/siliconlabs/generic/source/bsp_cpu.o
  .debug_line    0x00000b8d     0x10fd ./BSP/siliconlabs/generic/source/bsp_os.o
  .debug_line    0x00001c8a       0xd9 ./CMSIS/EFM32PG12B/startup_efm32pg12b.o
@@ -19938,56 +19937,55 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
  .debug_line    0x00006f0b      0x89f ./Graphics/dmd_display.o
  .debug_line    0x000077aa      0xb25 ./Graphics/glib.o
  .debug_line    0x000082cf      0x424 ./Graphics/glib_font_narrow_6x8.o
- .debug_line    0x000086f3      0x426 ./Graphics/glib_font_number_16x20.o
- .debug_line    0x00008b19      0x4a6 ./Graphics/glib_rectangle.o
- .debug_line    0x00008fbf      0x502 ./Graphics/glib_string.o
- .debug_line    0x000094c1      0xff7 ./SystemView/SEGGER_RTT.o
- .debug_line    0x0000a4b8       0x90 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
- .debug_line    0x0000a548     0x1f1d ./SystemView/SEGGER_SYSVIEW.o
- .debug_line    0x0000c465      0xf54 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
- .debug_line    0x0000d3b9     0x10f6 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
- .debug_line    0x0000e4af     0x124f ./common/source/collections/slist.o
- .debug_line    0x0000f6fe     0x1272 ./common/source/common/common.o
- .debug_line    0x00010970     0x197b ./common/source/kal/kal_kernel.o
- .debug_line    0x000122eb      0xb92 ./common/source/lib/lib_math.o
- .debug_line    0x00012e7d     0x1868 ./common/source/lib/lib_mem.o
- .debug_line    0x000146e5     0x14d5 ./common/source/platform_mgr/platform_mgr.o
- .debug_line    0x00015bba      0xbc6 ./common/source/rtos/rtos_err_str.o
- .debug_line    0x00016780     0x134c ./cpu/source/cpu_core.o
- .debug_line    0x00017acc      0xaa1 ./emlib/em_acmp.o
- .debug_line    0x0001856d      0x180 ./emlib/em_assert.o
- .debug_line    0x000186ed     0x14bb ./emlib/em_cmu.o
- .debug_line    0x00019ba8      0xc3d ./emlib/em_core.o
- .debug_line    0x0001a7e5     0x149d ./emlib/em_emu.o
- .debug_line    0x0001bc82      0xccd ./emlib/em_gpio.o
- .debug_line    0x0001c94f      0x948 ./emlib/em_prs.o
- .debug_line    0x0001d297      0xa18 ./emlib/em_rtcc.o
- .debug_line    0x0001dcaf      0xcd7 ./emlib/em_usart.o
- .debug_line    0x0001e986      0xe2f ./kernel/source/os_cfg_app.o
- .debug_line    0x0001f7b5     0x1954 ./kernel/source/os_core.o
- .debug_line    0x00021109      0xe5a ./kernel/source/os_dbg.o
- .debug_line    0x00021f63     0x16bd ./kernel/source/os_flag.o
- .debug_line    0x00023620     0x13c3 ./kernel/source/os_msg.o
- .debug_line    0x000249e3     0x165c ./kernel/source/os_mutex.o
- .debug_line    0x0002603f     0x135a ./kernel/source/os_prio.o
- .debug_line    0x00027399     0x15fa ./kernel/source/os_sem.o
- .debug_line    0x00028993     0x142a ./kernel/source/os_stat.o
- .debug_line    0x00029dbd     0x1b4a ./kernel/source/os_task.o
- .debug_line    0x0002b907     0x14a6 ./kernel/source/os_time.o
- .debug_line    0x0002cdad     0x16ed ./kernel/source/os_tmr.o
- .debug_line    0x0002e49a      0xe18 ./kernel/source/os_var.o
- .debug_line    0x0002f2b2       0xb5 ./ports/source/gnu/armv7m_cpu_a.o
- .debug_line    0x0002f367      0x11e ./ports/source/gnu/armv7m_os_cpu_a.o
- .debug_line    0x0002f485     0x13c0 ./ports/source/gnu/armv7m_os_cpu_c.o
- .debug_line    0x00030845      0xe60 ./service/sl_sleeptimer.o
- .debug_line    0x000316a5      0xcca ./service/sl_sleeptimer_hal_rtcc.o
- .debug_line    0x0003236f      0xa86 ./src/buttons.o
- .debug_line    0x00032df5      0x882 ./src/cmu.o
- .debug_line    0x00033677     0x1979 ./src/ex_main.o
- .debug_line    0x00034ff0      0x96c ./src/gpio.o
- .debug_line    0x0003595c      0x36a ./src/slider.o
+ .debug_line    0x000086f3      0x4a6 ./Graphics/glib_rectangle.o
+ .debug_line    0x00008b99      0x502 ./Graphics/glib_string.o
+ .debug_line    0x0000909b      0xff7 ./SystemView/SEGGER_RTT.o
+ .debug_line    0x0000a092       0x90 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
+ .debug_line    0x0000a122     0x1f1d ./SystemView/SEGGER_SYSVIEW.o
+ .debug_line    0x0000c03f      0xf54 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+ .debug_line    0x0000cf93     0x10f6 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+ .debug_line    0x0000e089     0x124f ./common/source/collections/slist.o
+ .debug_line    0x0000f2d8     0x1272 ./common/source/common/common.o
+ .debug_line    0x0001054a     0x197b ./common/source/kal/kal_kernel.o
+ .debug_line    0x00011ec5      0xb92 ./common/source/lib/lib_math.o
+ .debug_line    0x00012a57     0x1868 ./common/source/lib/lib_mem.o
+ .debug_line    0x000142bf     0x14d5 ./common/source/platform_mgr/platform_mgr.o
+ .debug_line    0x00015794      0xbc6 ./common/source/rtos/rtos_err_str.o
+ .debug_line    0x0001635a     0x134c ./cpu/source/cpu_core.o
+ .debug_line    0x000176a6      0xaa1 ./emlib/em_acmp.o
+ .debug_line    0x00018147      0x180 ./emlib/em_assert.o
+ .debug_line    0x000182c7     0x14bb ./emlib/em_cmu.o
+ .debug_line    0x00019782      0xc3d ./emlib/em_core.o
+ .debug_line    0x0001a3bf     0x149d ./emlib/em_emu.o
+ .debug_line    0x0001b85c      0xccd ./emlib/em_gpio.o
+ .debug_line    0x0001c529      0x948 ./emlib/em_prs.o
+ .debug_line    0x0001ce71      0xa18 ./emlib/em_rtcc.o
+ .debug_line    0x0001d889      0xcd7 ./emlib/em_usart.o
+ .debug_line    0x0001e560      0xe2f ./kernel/source/os_cfg_app.o
+ .debug_line    0x0001f38f     0x1954 ./kernel/source/os_core.o
+ .debug_line    0x00020ce3      0xe5a ./kernel/source/os_dbg.o
+ .debug_line    0x00021b3d     0x16bd ./kernel/source/os_flag.o
+ .debug_line    0x000231fa     0x13c3 ./kernel/source/os_msg.o
+ .debug_line    0x000245bd     0x165c ./kernel/source/os_mutex.o
+ .debug_line    0x00025c19     0x135a ./kernel/source/os_prio.o
+ .debug_line    0x00026f73     0x15fa ./kernel/source/os_sem.o
+ .debug_line    0x0002856d     0x142a ./kernel/source/os_stat.o
+ .debug_line    0x00029997     0x1b4a ./kernel/source/os_task.o
+ .debug_line    0x0002b4e1     0x14a6 ./kernel/source/os_time.o
+ .debug_line    0x0002c987     0x16ed ./kernel/source/os_tmr.o
+ .debug_line    0x0002e074      0xe18 ./kernel/source/os_var.o
+ .debug_line    0x0002ee8c       0xb5 ./ports/source/gnu/armv7m_cpu_a.o
+ .debug_line    0x0002ef41      0x11e ./ports/source/gnu/armv7m_os_cpu_a.o
+ .debug_line    0x0002f05f     0x13c0 ./ports/source/gnu/armv7m_os_cpu_c.o
+ .debug_line    0x0003041f      0xe60 ./service/sl_sleeptimer.o
+ .debug_line    0x0003127f      0xcca ./service/sl_sleeptimer_hal_rtcc.o
+ .debug_line    0x00031f49      0xa86 ./src/buttons.o
+ .debug_line    0x000329cf      0x882 ./src/cmu.o
+ .debug_line    0x00033251     0x198d ./src/ex_main.o
+ .debug_line    0x00034bde      0x96c ./src/gpio.o
+ .debug_line    0x0003554a      0x36a ./src/slider.o
 
-.debug_str      0x00000000   0x17e504
+.debug_str      0x00000000   0x17e481
  .debug_str     0x00000000   0x153930 ./BSP/siliconlabs/generic/source/bsp_cpu.o
                              0x1547e3 (size before relaxing)
  .debug_str     0x00153930     0xd692 ./BSP/siliconlabs/generic/source/bsp_os.o
@@ -20014,101 +20012,99 @@ OUTPUT(RTOS_Lab7.axf elf32-littlearm)
                              0x153429 (size before relaxing)
  .debug_str     0x0016ddc1       0x95 ./Graphics/glib_font_narrow_6x8.o
                                0x80ea (size before relaxing)
- .debug_str     0x0016de56       0x99 ./Graphics/glib_font_number_16x20.o
-                               0x80ee (size before relaxing)
- .debug_str     0x0016deef       0xd4 ./Graphics/glib_rectangle.o
+ .debug_str     0x0016de56       0xd4 ./Graphics/glib_rectangle.o
                                0x828a (size before relaxing)
- .debug_str     0x0016dfc3      0x114 ./Graphics/glib_string.o
+ .debug_str     0x0016df2a      0x114 ./Graphics/glib_string.o
                                0x82b8 (size before relaxing)
- .debug_str     0x0016e0d7      0xced ./SystemView/SEGGER_RTT.o
+ .debug_str     0x0016e03e      0xced ./SystemView/SEGGER_RTT.o
                              0x157865 (size before relaxing)
- .debug_str     0x0016edc4       0x26 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
+ .debug_str     0x0016ed2b       0x26 ./SystemView/SEGGER_RTT_ASM_ARMv7M.o
                                  0x93 (size before relaxing)
- .debug_str     0x0016edea     0x1355 ./SystemView/SEGGER_SYSVIEW.o
+ .debug_str     0x0016ed51     0x1355 ./SystemView/SEGGER_SYSVIEW.o
                              0x159608 (size before relaxing)
- .debug_str     0x0017013f      0x141 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
+ .debug_str     0x001700a6      0x141 ./SystemView/SEGGER_SYSVIEW_Config_MicriumOSKernel.o
                              0x1620b5 (size before relaxing)
- .debug_str     0x00170280      0x188 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
+ .debug_str     0x001701e7      0x188 ./SystemView/SEGGER_SYSVIEW_MicriumOSKernel.o
                              0x164147 (size before relaxing)
- .debug_str     0x00170408     0x50a4 ./common/source/collections/slist.o
+ .debug_str     0x0017036f     0x50a4 ./common/source/collections/slist.o
                              0x16403e (size before relaxing)
- .debug_str     0x001754ac      0x1ba ./common/source/common/common.o
+ .debug_str     0x00175413      0x1ba ./common/source/common/common.o
                              0x164ce4 (size before relaxing)
- .debug_str     0x00175666      0xa61 ./common/source/kal/kal_kernel.o
+ .debug_str     0x001755cd      0xa61 ./common/source/kal/kal_kernel.o
                              0x165682 (size before relaxing)
- .debug_str     0x001760c7       0xce ./common/source/lib/lib_math.o
+ .debug_str     0x0017602e       0xce ./common/source/lib/lib_math.o
                              0x153b2d (size before relaxing)
- .debug_str     0x00176195      0x6b9 ./common/source/lib/lib_mem.o
+ .debug_str     0x001760fc      0x6b9 ./common/source/lib/lib_mem.o
                              0x1652c7 (size before relaxing)
- .debug_str     0x0017684e      0x60a ./common/source/platform_mgr/platform_mgr.o
+ .debug_str     0x001767b5      0x60a ./common/source/platform_mgr/platform_mgr.o
                              0x165663 (size before relaxing)
- .debug_str     0x00176e58       0xef ./common/source/rtos/rtos_err_str.o
+ .debug_str     0x00176dbf       0xef ./common/source/rtos/rtos_err_str.o
                              0x15557d (size before relaxing)
- .debug_str     0x00176f47      0x2f7 ./cpu/source/cpu_core.o
+ .debug_str     0x00176eae      0x2f7 ./cpu/source/cpu_core.o
                              0x164e0d (size before relaxing)
- .debug_str     0x0017723e      0x9c8 ./emlib/em_acmp.o
+ .debug_str     0x001771a5      0x9c8 ./emlib/em_acmp.o
                              0x1510c9 (size before relaxing)
- .debug_str     0x00177c06       0x70 ./emlib/em_assert.o
+ .debug_str     0x00177b6d       0x70 ./emlib/em_assert.o
                                0x2e2e (size before relaxing)
- .debug_str     0x00177c76     0x1397 ./emlib/em_cmu.o
+ .debug_str     0x00177bdd     0x1397 ./emlib/em_cmu.o
                              0x15408a (size before relaxing)
- .debug_str     0x0017900d      0x3c3 ./emlib/em_core.o
+ .debug_str     0x00178f74      0x3c3 ./emlib/em_core.o
                              0x14fcf1 (size before relaxing)
- .debug_str     0x001793d0     0x11bb ./emlib/em_emu.o
+ .debug_str     0x00179337     0x11bb ./emlib/em_emu.o
                              0x154af9 (size before relaxing)
- .debug_str     0x0017a58b      0x23f ./emlib/em_gpio.o
+ .debug_str     0x0017a4f2      0x23f ./emlib/em_gpio.o
                              0x14fc49 (size before relaxing)
- .debug_str     0x0017a7ca      0x51a ./emlib/em_prs.o
+ .debug_str     0x0017a731      0x51a ./emlib/em_prs.o
                              0x14fe5c (size before relaxing)
- .debug_str     0x0017ace4       0xc2 ./emlib/em_rtcc.o
+ .debug_str     0x0017ac4b       0xc2 ./emlib/em_rtcc.o
                              0x14f87b (size before relaxing)
- .debug_str     0x0017ada6      0x73a ./emlib/em_usart.o
+ .debug_str     0x0017ad0d      0x73a ./emlib/em_usart.o
                              0x15171e (size before relaxing)
- .debug_str     0x0017b4e0       0x81 ./kernel/source/os_cfg_app.o
+ .debug_str     0x0017b447       0x81 ./kernel/source/os_cfg_app.o
                              0x15e693 (size before relaxing)
- .debug_str     0x0017b561      0xb7b ./kernel/source/os_core.o
+ .debug_str     0x0017b4c8      0xb7b ./kernel/source/os_core.o
                              0x168266 (size before relaxing)
- .debug_str     0x0017c0dc      0x38c ./kernel/source/os_dbg.o
+ .debug_str     0x0017c043      0x38c ./kernel/source/os_dbg.o
                              0x15e99e (size before relaxing)
- .debug_str     0x0017c468      0x15b ./kernel/source/os_flag.o
+ .debug_str     0x0017c3cf      0x15b ./kernel/source/os_flag.o
                              0x167b1c (size before relaxing)
- .debug_str     0x0017c5c3       0xe2 ./kernel/source/os_msg.o
+ .debug_str     0x0017c52a       0xe2 ./kernel/source/os_msg.o
                              0x167a60 (size before relaxing)
- .debug_str     0x0017c6a5      0x17b ./kernel/source/os_mutex.o
+ .debug_str     0x0017c60c      0x17b ./kernel/source/os_mutex.o
                              0x167b44 (size before relaxing)
- .debug_str     0x0017c820       0xad ./kernel/source/os_prio.o
+ .debug_str     0x0017c787       0xad ./kernel/source/os_prio.o
                              0x166bfb (size before relaxing)
- .debug_str     0x0017c8cd       0xf8 ./kernel/source/os_sem.o
+ .debug_str     0x0017c834       0xf8 ./kernel/source/os_sem.o
                              0x167ab0 (size before relaxing)
- .debug_str     0x0017c9c5      0x176 ./kernel/source/os_stat.o
+ .debug_str     0x0017c92c      0x176 ./kernel/source/os_stat.o
                              0x167b11 (size before relaxing)
- .debug_str     0x0017cb3b      0x284 ./kernel/source/os_task.o
+ .debug_str     0x0017caa2      0x284 ./kernel/source/os_task.o
                              0x167cf0 (size before relaxing)
- .debug_str     0x0017cdbf      0x13e ./kernel/source/os_time.o
+ .debug_str     0x0017cd26      0x13e ./kernel/source/os_time.o
                              0x167afe (size before relaxing)
- .debug_str     0x0017cefd      0x161 ./kernel/source/os_tmr.o
+ .debug_str     0x0017ce64      0x161 ./kernel/source/os_tmr.o
                              0x167b21 (size before relaxing)
- .debug_str     0x0017d05e       0x86 ./kernel/source/os_var.o
+ .debug_str     0x0017cfc5       0x86 ./kernel/source/os_var.o
                              0x15e68a (size before relaxing)
- .debug_str     0x0017d0e4       0x7b ./ports/source/gnu/armv7m_cpu_a.o
+ .debug_str     0x0017d04b       0x7b ./ports/source/gnu/armv7m_cpu_a.o
                                  0xe8 (size before relaxing)
- .debug_str     0x0017d15f       0x7e ./ports/source/gnu/armv7m_os_cpu_a.o
+ .debug_str     0x0017d0c6       0x7e ./ports/source/gnu/armv7m_os_cpu_a.o
                                  0xeb (size before relaxing)
- .debug_str     0x0017d1dd      0x17a ./ports/source/gnu/armv7m_os_cpu_c.o
+ .debug_str     0x0017d144      0x17a ./ports/source/gnu/armv7m_os_cpu_c.o
                              0x166d08 (size before relaxing)
- .debug_str     0x0017d357      0x786 ./service/sl_sleeptimer.o
+ .debug_str     0x0017d2be      0x786 ./service/sl_sleeptimer.o
                              0x156e1b (size before relaxing)
- .debug_str     0x0017dadd      0x222 ./service/sl_sleeptimer_hal_rtcc.o
+ .debug_str     0x0017da44      0x222 ./service/sl_sleeptimer_hal_rtcc.o
                              0x1559a8 (size before relaxing)
- .debug_str     0x0017dcff       0x7b ./src/buttons.o
+ .debug_str     0x0017dc66       0x7b ./src/buttons.o
                              0x1507dd (size before relaxing)
- .debug_str     0x0017dd7a       0x16 ./src/cmu.o
+ .debug_str     0x0017dce1       0x16 ./src/cmu.o
                              0x150775 (size before relaxing)
- .debug_str     0x0017dd90      0x72f ./src/ex_main.o
-                             0x16a53c (size before relaxing)
- .debug_str     0x0017e4bf       0x18 ./src/gpio.o
+ .debug_str     0x0017dcf7      0x745 ./src/ex_main.o
+                             0x16a552 (size before relaxing)
+ .debug_str     0x0017e43c       0x18 ./src/gpio.o
                              0x15042c (size before relaxing)
- .debug_str     0x0017e4d7       0x2d ./src/slider.o
+ .debug_str     0x0017e454       0x2d ./src/slider.o
                                0x3dfa (size before relaxing)
 
 .debug_frame    0x00000000     0x770c
