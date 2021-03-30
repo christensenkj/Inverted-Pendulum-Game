@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
 //----------------------------------------------------------------------------------------------------------------------------------
 /// @brief Structure which holds the Queue's Node information
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -78,5 +80,12 @@ int is_empty(struct node_t** head);
 /// @param head The head of the queue
 //----------------------------------------------------------------------------------------------------------------------------------
 void empty_queue(struct node_t** head);
+
+
+// Array FIFO function declarations
+void fifo_push(uint8_t *fifo, uint8_t *wr_ptr, uint8_t len, uint8_t val);
+// Array FIFO function declarations
+uint8_t fifo_pop(uint8_t *fifo, uint8_t *rd_ptr, uint8_t len);
+bool fifo_isempty(uint8_t *fifo, uint8_t *wr_ptr, uint8_t *rd_ptr);
 
 #endif /* SRC_FIFO_H_ */

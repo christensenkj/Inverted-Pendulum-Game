@@ -254,17 +254,19 @@ int  main (void)
  {
     RTOS_ERR  err;
 
-
-    BSP_SystemInit();                                           /* Initialize System.                                   */
-    CPU_Init();                                                 /* Initialize CPU.                                      */
+    /* Initialize System.                                   */
+    BSP_SystemInit();
+    /* Initialize CPU.                                      */
+    CPU_Init();
 
     OS_TRACE_INIT();
-    OSInit(&err);                                               /* Initialize the Kernel.                               */
-                                                                /*   Check error code.                                  */
+    /* Initialize the Kernel.                               */
+    OSInit(&err);
+    /*   Check error code.                                  */
     APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), 1);
 
-
-    OSTaskCreate(&Ex_MainStartTaskTCB,                          /* Create the Start Task.                               */
+    /* Create the Start Task.                               */
+    OSTaskCreate(&Ex_MainStartTaskTCB,
                  "Ex Main Start Task",
                   Ex_MainStartTask,
                   DEF_NULL,
@@ -454,11 +456,9 @@ static  void  Ex_MainStartTask (void  *p_arg)
     OSTmrStart ((OS_TMR *) &tmr, (RTOS_ERR *) &err);
 
     while (DEF_ON) {
-                                                                /* Delay Start Task execution for                       */
-        OSTimeDly( 1000,                                        /*   1000 OS Ticks                                      */
-                   OS_OPT_TIME_DLY,                             /*   from now.                                          */
-                  &err);
-                                                                /*   Check error code.                                  */
+        /* Delay Start Task execution for                       */
+        OSTimeDly( 1000, OS_OPT_TIME_DLY, &err);
+        /*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
 }
@@ -478,8 +478,8 @@ static  void  Ex_MainIdleTask (void  *p_arg)
 {
     RTOS_ERR  err;
 
-
-    PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
+    /* Prevent compiler warning.                            */
+    PP_UNUSED_PARAM(p_arg);
 
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
     CPU_IntDisMeasMaxCurReset();                                /* Initialize interrupts disabled measurement.          */
@@ -490,10 +490,8 @@ static  void  Ex_MainIdleTask (void  *p_arg)
     while (DEF_ON) {
     	EMU_EnterEM1();
         /* Delay Start Task execution for                       */
-		OSTimeDly( 10,                                        /*   1000 OS Ticks                                      */
-					OS_OPT_TIME_DLY,                             /*   from now.                                          */
-					&err);
-                                                                /*   Check error code.                                  */
+		OSTimeDly( 10, OS_OPT_TIME_DLY, &err);
+        /*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
 }
@@ -528,30 +526,20 @@ static  void  Ex_MainSpeedSetpointTask (void  *p_arg)
     while (DEF_ON) {
     	// pend on semaphore
     	OSSemPend (&fifo_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-    	// lock access to speed setpoint data structure using mutex
-    	OSMutexPend (&speed_setpoint_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	// perform fifo operations atomically
+    	CORE_DECLARE_IRQ_STATE;           // Storage for saving IRQ state prior
+    	CORE_ENTER_ATOMIC();
+    	// interpret results from fifo 0
+    	if (!fifo_isempty(btn0_fifo, &btn0_fifo_wr, &btn0_fifo_rd)) {
+    		btn0_status = fifo_pop(btn0_fifo, &btn0_fifo_rd, 10);
+    	}
     	// interpret results from fifo 1
-//    	if (!is_empty(&btn0_fifo)) {
-    	if (!(btn0_fifo_rd == btn0_fifo_wr)) {
-//    		btn0_status = peek(&btn0_fifo);
-    		btn0_status = btn0_fifo[btn0_fifo_rd];
-    		btn0_fifo_rd += 1;
-    		if (btn0_fifo_rd == 10) {
-    			btn0_fifo_rd = 0;
-    		}
-//    		pop(&btn0_fifo);
+    	if (!fifo_isempty(btn1_fifo, &btn1_fifo_wr, &btn1_fifo_rd)) {
+    		btn1_status = fifo_pop(btn1_fifo, &btn1_fifo_rd, 10);
     	}
-    	// interpret results from fifo 2
-//    	if (!is_empty(&btn1_fifo)) {
-		if (!(btn1_fifo_rd == btn1_fifo_wr)) {
-//    		btn1_status = peek(&btn1_fifo);
-			btn1_status = btn1_fifo[btn1_fifo_rd];
-			btn1_fifo_rd += 1;
-    		if (btn1_fifo_rd == 10) {
-    			btn1_fifo_rd = 0;
-    		}
-//    		pop(&btn1_fifo);
-    	}
+		CORE_EXIT_ATOMIC();
+    	// obtain access to speed setpoint
+    	OSMutexPend (&speed_setpoint_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
     	// access speed setpoint data structure here
     	if (btn0_status != 0) {
     		speed_setpoint_data.up_cnt++;
@@ -940,7 +928,7 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
         else {
         	sprintf(dirString2, "Straight");
         }
-        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
+        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNormal8x8);
         gc.backgroundColor = White;
         gc.foregroundColor = Black;
         GLIB_clear(&gc);
@@ -949,13 +937,6 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
         GLIB_drawString(&gc, dirString2, strlen(dirString2), 1, 60, true);
         /* Update display */
         DMD_updateDisplay();
-//        gc.backgroundColor = White;
-//        gc.foregroundColor = Black;
-//        GLIB_clear(&gc);
-//        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
-//        snprintf(str, 256, "  EFM32 GLIB \nNormal 8x8 font");
-//        GLIB_drawString(&gc, str, strlen(str), 5, 5, 0);
-//        DMD_updateDisplay();
         /* Delay Start Task execution for  */
 		OSTimeDly( 10,OS_OPT_TIME_PERIODIC,&err);
 		/*   Check error code.                                  */
@@ -1005,21 +986,11 @@ void GPIO_EVEN_IRQHandler(void)
 	bool PB0_status;
 	poll_PB0(&PB0_status);
 	if (PB0_status) {
-		btn0_fifo[btn0_fifo_wr] = 1;
-	    btn0_fifo_wr += 1;
-	    if (btn0_fifo_wr == 10) {
-	    	btn0_fifo_wr = 0;
-	    }
-//		push(&btn0_fifo, 1);
+	    fifo_push(btn0_fifo, &btn0_fifo_wr, 10, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-		btn0_fifo[btn0_fifo_wr] = 0;
-	    btn0_fifo_wr += 1;
-	    if (btn0_fifo_wr == 10) {
-	    	btn0_fifo_wr = 0;
-	    }
-//		push(&btn0_fifo, 0);
+	    fifo_push(btn0_fifo, &btn0_fifo_wr, 10, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	__enable_irq();
@@ -1048,21 +1019,11 @@ void GPIO_ODD_IRQHandler(void)
 	bool PB1_status;
 	poll_PB1(&PB1_status);
 	if (PB1_status) {
-		btn1_fifo[btn1_fifo_wr] = 1;
-	    btn1_fifo_wr += 1;
-	    if (btn1_fifo_wr == 10) {
-	    	btn1_fifo_wr = 0;
-	    }
-//		push(&btn1_fifo, 1);
+	    fifo_push(btn1_fifo, &btn1_fifo_wr, 10, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-		btn1_fifo[btn1_fifo_wr] = 0;
-	    btn1_fifo_wr += 1;
-	    if (btn1_fifo_wr == 10) {
-	    	btn1_fifo_wr = 0;
-	    }
-//		push(&btn1_fifo, 0);
+	    fifo_push(btn1_fifo, &btn1_fifo_wr, 10, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 
