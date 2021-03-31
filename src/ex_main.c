@@ -603,7 +603,9 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
     	// see if still traveling in same direction
     	if (prev_vehicle_direction == HARD_LEFT || prev_vehicle_direction == SOFT_LEFT) {
     		if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
-    			vehicle_direction_data.cur_dir_time += 1;
+    			if (vehicle_direction_data.cur_dir_time <= 40) {
+    				vehicle_direction_data.cur_dir_time += 1;
+    			}
     		}
     		else {
     			vehicle_direction_data.cur_dir_time = 0;
@@ -611,7 +613,9 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
     	}
     	else if (prev_vehicle_direction == HARD_RIGHT || prev_vehicle_direction == SOFT_RIGHT) {
     		if (slider_pos == HARD_RIGHT || slider_pos == SOFT_RIGHT) {
-    			vehicle_direction_data.cur_dir_time += 1;
+    			if (vehicle_direction_data.cur_dir_time <= 40) {
+    				vehicle_direction_data.cur_dir_time += 1;
+    			}
     		}
     		else {
     			vehicle_direction_data.cur_dir_time = 0;
@@ -619,7 +623,9 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
     	}
     	else if (prev_vehicle_direction == INACTIVE) {
     		if (slider_pos == INACTIVE) {
-    			vehicle_direction_data.cur_dir_time += 1;
+    			if (vehicle_direction_data.cur_dir_time <= 40) {
+    				vehicle_direction_data.cur_dir_time += 1;
+    			}
     		}
     		else {
     			vehicle_direction_data.cur_dir_time = 0;

@@ -53,21 +53,29 @@ void slider_setup() {
  *
  ******************************************************************************/
 void slider_position(uint8_t *position) {
+	uint8_t pos_cnt = 0;
 	CAPSENSE_Sense();
 	// set position to inactive state
 	*position = INACTIVE;
 	// Determine which pads of the slider are pressed
 	if (CAPSENSE_getPressed(0)) {
 		*position = HARD_LEFT;
+		pos_cnt++;
 	}
-	else if (CAPSENSE_getPressed(1)) {
+	if (CAPSENSE_getPressed(1)) {
 		*position = SOFT_LEFT;
+		pos_cnt++;
 	}
-	else if (CAPSENSE_getPressed(2)) {
+	if (CAPSENSE_getPressed(2)) {
 		*position = SOFT_RIGHT;
+		pos_cnt++;
 	}
-	else if (CAPSENSE_getPressed(3)) {
+	if (CAPSENSE_getPressed(3)) {
 		*position = HARD_RIGHT;
+		pos_cnt++;
+	}
+	if (pos_cnt > 1) {
+		*position = INACTIVE;
 	}
 	return;
 }
