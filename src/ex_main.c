@@ -182,13 +182,16 @@ struct speed_setpoint_data_struct {
 
 struct vehicle_direction_data_struct {
 	uint8_t cur_dir;
-	uint8_t cur_dir_time;
+	uint32_t cur_dir_time;
 	uint8_t left_cnt;
 	uint8_t right_cnt;
 } vehicle_direction_data;
 
 /* Global glib context */
 GLIB_Context_t gc;
+
+// System time
+static volatile uint32_t msTicks; /* counts 1ms timeTicks */
 
 
 /*
@@ -305,7 +308,7 @@ int  main (void)
 static  void  Ex_MainStartTask (void  *p_arg)
 {
     RTOS_ERR  err;
-
+    msTicks = 0;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
@@ -455,6 +458,11 @@ static  void  Ex_MainStartTask (void  *p_arg)
     // Start the timer
     OSTmrStart ((OS_TMR *) &tmr, (RTOS_ERR *) &err);
 
+    /* Setup SysTick timer for 1 msec interrupts  */
+    if (SysTick_Config(SystemCoreClockGet() / 1000)) {
+      while (1) ;
+    }
+
     while (DEF_ON) {
         /* Delay Start Task execution for                       */
         OSTimeDly( 1000, OS_OPT_TIME_DLY, &err);
@@ -503,8 +511,7 @@ static  void  Ex_MainIdleTask (void  *p_arg)
  *   Updates the Speed Setpoint Data
  *
  * @details
- * 	 This task is run as often as is specified by the OS timer tick value in the OSTimeDly
- * 	 function.
+ * 	 This task is used to determine button inputs values and their impact on vehicle speed
  *
  *
  ******************************************************************************/
@@ -570,8 +577,7 @@ static  void  Ex_MainSpeedSetpointTask (void  *p_arg)
  *   Updates the Vehicle Direction Data
  *
  * @details
- * 	 This task is run as often as is specified by the OS timer tick value in the OSTimeDly
- * 	 function.
+ * 	 This task is used to update vehicle direction data using the slider
  *
  *
  ******************************************************************************/
@@ -580,6 +586,10 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
 {
     RTOS_ERR  err;
     uint8_t slider_pos;
+    // Declare variable for system time
+    uint32_t start_time = 0;
+    uint32_t end_time = 0;
+    uint32_t total_time = 0;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
@@ -601,38 +611,30 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
     	vehicle_direction_data.cur_dir = slider_pos;
 
     	// see if still traveling in same direction
-    	if (prev_vehicle_direction == HARD_LEFT || prev_vehicle_direction == SOFT_LEFT) {
-    		if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
-    			if (vehicle_direction_data.cur_dir_time <= 40) {
-    				vehicle_direction_data.cur_dir_time += 1;
-    			}
+    	if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
+    		// if we are now in a new direction, start the timer
+    		if (prev_vehicle_direction != HARD_LEFT && prev_vehicle_direction != SOFT_LEFT) {
+    			start_time = msTicks;
     		}
-    		else {
-    			vehicle_direction_data.cur_dir_time = 0;
-    		}
+    		end_time = msTicks;
+    		total_time = end_time - start_time;
+    		vehicle_direction_data.cur_dir_time = total_time;
     	}
-    	else if (prev_vehicle_direction == HARD_RIGHT || prev_vehicle_direction == SOFT_RIGHT) {
-    		if (slider_pos == HARD_RIGHT || slider_pos == SOFT_RIGHT) {
-    			if (vehicle_direction_data.cur_dir_time <= 40) {
-    				vehicle_direction_data.cur_dir_time += 1;
-    			}
-    		}
-    		else {
-    			vehicle_direction_data.cur_dir_time = 0;
-    		}
+    	else if (slider_pos == HARD_RIGHT || slider_pos == SOFT_RIGHT) {
+    		if (prev_vehicle_direction != HARD_RIGHT && prev_vehicle_direction != SOFT_RIGHT) {
+				start_time = msTicks;
+			}
+			end_time = msTicks;
+			total_time = end_time - start_time;
+			vehicle_direction_data.cur_dir_time = total_time;
     	}
-    	else if (prev_vehicle_direction == INACTIVE) {
-    		if (slider_pos == INACTIVE) {
-    			if (vehicle_direction_data.cur_dir_time <= 40) {
-    				vehicle_direction_data.cur_dir_time += 1;
-    			}
-    		}
-    		else {
-    			vehicle_direction_data.cur_dir_time = 0;
-    		}
-    	}
-    	else {
-    		vehicle_direction_data.cur_dir_time = 0;
+    	else if (slider_pos == INACTIVE) {
+    		if (prev_vehicle_direction != INACTIVE) {
+				start_time = msTicks;
+			}
+			end_time = msTicks;
+			total_time = end_time - start_time;
+			vehicle_direction_data.cur_dir_time = total_time;
     	}
     	// upgrade the count
     	if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
@@ -661,8 +663,7 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
  *   Updates the Vehicle Monitor Data
  *
  * @details
- * 	 This task is run as often as is specified by the OS timer tick value in the OSTimeDly
- * 	 function.
+ * 	 This task is used to check vehicle parameters and signal the LCD task to display and alert the LED task of warnings
  *
  *
  ******************************************************************************/
@@ -672,7 +673,7 @@ static  void  Ex_MainVehicleMonitorTask (void  *p_arg)
     RTOS_ERR  err;
     OS_FLAGS flag;
     uint8_t cur_speed;
-    uint8_t cur_dir_time;
+    uint32_t cur_dir_time;
     uint8_t cur_dir;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
@@ -758,7 +759,7 @@ static  void  Ex_MainVehicleMonitorTask (void  *p_arg)
     	}
 
     	// set the event flag for the led output for going in same direction for at least 5 seconds
-    	if (cur_dir_time > 40) {
+    	if (cur_dir_time > 5000) {
     		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
     			(OS_FLAGS)      0x20,
     			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
@@ -792,8 +793,7 @@ static  void  Ex_MainVehicleMonitorTask (void  *p_arg)
  *   Drives the LEDs based on the pushbutton and slider values.
  *
  * @details
- * 	 This task is run as often as is specified by the OS timer tick value in the OSTimeDly
- * 	 function.
+ * 	 This task is used to display warning flags on the LEDs
  *
  *
  ******************************************************************************/
@@ -869,8 +869,7 @@ static  void  Ex_MainLedOutputTask (void  *p_arg)
  *   Updates the LCD Display
  *
  * @details
- * 	 This task is run as often as is specified by the OS timer tick value in the OSTimeDly
- * 	 function.
+ * 	 This task is used to display environment variables on the LCD
  *
  *
  ******************************************************************************/
@@ -1034,4 +1033,14 @@ void GPIO_ODD_IRQHandler(void)
 	}
 
 	__enable_irq();
+}
+
+
+/***************************************************************************//**
+ * @brief
+ *   SysTick_Handler. Interrupt Service Routine for system tick counter
+ ******************************************************************************/
+void SysTick_Handler(void)
+{
+  msTicks++;
 }
