@@ -163,8 +163,9 @@ enum vehicle_dir_state {
 //struct node_t* btn0_fifo;
 //struct node_t* btn1_fifo;
 
-uint8_t btn0_fifo[10];
-uint8_t btn1_fifo[10];
+#define FIFO_LEN	10
+uint8_t btn0_fifo[FIFO_LEN];
+uint8_t btn1_fifo[FIFO_LEN];
 uint8_t btn0_fifo_rd;
 uint8_t btn0_fifo_wr;
 uint8_t btn1_fifo_rd;
@@ -447,9 +448,7 @@ static  void  Ex_MainStartTask (void  *p_arg)
     OSMutexCreate ((OS_MUTEX *) &vehicle_direction_mutex,
 			(CPU_CHAR *) "Vehicle Direction Mutex",
 			(RTOS_ERR *) &err);
-//    // Declare the two FIFOs
-//    btn0_fifo = create_queue();
-//    btn1_fifo = create_queue();
+    // Declare the two FIFOs
     btn0_fifo_rd = 0;
     btn0_fifo_wr = 0;
     btn1_fifo_rd = 0;
@@ -538,11 +537,11 @@ static  void  Ex_MainSpeedSetpointTask (void  *p_arg)
     	CORE_ENTER_ATOMIC();
     	// interpret results from fifo 0
     	if (!fifo_isempty(btn0_fifo, &btn0_fifo_wr, &btn0_fifo_rd)) {
-    		btn0_status = fifo_pop(btn0_fifo, &btn0_fifo_rd, 10);
+    		btn0_status = fifo_pop(btn0_fifo, &btn0_fifo_rd, FIFO_LEN);
     	}
     	// interpret results from fifo 1
     	if (!fifo_isempty(btn1_fifo, &btn1_fifo_wr, &btn1_fifo_rd)) {
-    		btn1_status = fifo_pop(btn1_fifo, &btn1_fifo_rd, 10);
+    		btn1_status = fifo_pop(btn1_fifo, &btn1_fifo_rd, FIFO_LEN);
     	}
 		CORE_EXIT_ATOMIC();
     	// obtain access to speed setpoint
@@ -554,7 +553,9 @@ static  void  Ex_MainSpeedSetpointTask (void  *p_arg)
     	}
     	if (btn1_status != 0) {
     		speed_setpoint_data.dn_cnt++;
-    		speed_setpoint_data.cur_speed -= 5;
+    		if (speed_setpoint_data.cur_speed > 0) {
+    			speed_setpoint_data.cur_speed -= 5;
+    		}
     	}
     	// release access to speed setpoint
     	OSMutexPost (&speed_setpoint_mutex, OS_OPT_POST_NONE, &err);
@@ -714,7 +715,7 @@ static  void  Ex_MainVehicleMonitorTask (void  *p_arg)
 			break;
 		}
     	// set the event flag for the led output for speeding 75 over
-    	if (cur_speed > 75) {
+    	if (cur_speed >= 75) {
     		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
     			(OS_FLAGS)      0x02,
     			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
@@ -736,7 +737,7 @@ static  void  Ex_MainVehicleMonitorTask (void  *p_arg)
     			(RTOS_ERR *)	&err);
     	}
     	// set the event flag for the led output for turning while 45 over
-    	if (cur_speed > 45 && cur_dir != straight) {
+    	if (cur_speed >= 45 && cur_dir != straight) {
     		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
     			(OS_FLAGS)      0x08,
     			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
@@ -991,11 +992,11 @@ void GPIO_EVEN_IRQHandler(void)
 	bool PB0_status;
 	poll_PB0(&PB0_status);
 	if (PB0_status) {
-	    fifo_push(btn0_fifo, &btn0_fifo_wr, 10, 1);
+	    fifo_push(btn0_fifo, &btn0_fifo_wr, FIFO_LEN, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-	    fifo_push(btn0_fifo, &btn0_fifo_wr, 10, 0);
+	    fifo_push(btn0_fifo, &btn0_fifo_wr, FIFO_LEN, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	__enable_irq();
@@ -1024,11 +1025,11 @@ void GPIO_ODD_IRQHandler(void)
 	bool PB1_status;
 	poll_PB1(&PB1_status);
 	if (PB1_status) {
-	    fifo_push(btn1_fifo, &btn1_fifo_wr, 10, 1);
+	    fifo_push(btn1_fifo, &btn1_fifo_wr, FIFO_LEN, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-	    fifo_push(btn1_fifo, &btn1_fifo_wr, 10, 0);
+	    fifo_push(btn1_fifo, &btn1_fifo_wr, FIFO_LEN, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 
