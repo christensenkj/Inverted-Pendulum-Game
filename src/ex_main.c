@@ -612,27 +612,33 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
     	vehicle_direction_data.cur_dir = slider_pos;
 
     	// see if still traveling in same direction
+    	// see if vehicle traveling left
     	if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
     		// if we are now in a new direction, start the timer
     		if (prev_vehicle_direction != HARD_LEFT && prev_vehicle_direction != SOFT_LEFT) {
     			start_time = msTicks;
     		}
+    		// get the time that the vehicle has been traveling in this direction
     		end_time = msTicks;
     		total_time = end_time - start_time;
     		vehicle_direction_data.cur_dir_time = total_time;
     	}
+    	// see if traveling right
     	else if (slider_pos == HARD_RIGHT || slider_pos == SOFT_RIGHT) {
     		if (prev_vehicle_direction != HARD_RIGHT && prev_vehicle_direction != SOFT_RIGHT) {
 				start_time = msTicks;
 			}
+    		// get the time that the vehicle has been traveling in this direction
 			end_time = msTicks;
 			total_time = end_time - start_time;
 			vehicle_direction_data.cur_dir_time = total_time;
     	}
+    	// see if traveling straight
     	else if (slider_pos == INACTIVE) {
     		if (prev_vehicle_direction != INACTIVE) {
 				start_time = msTicks;
 			}
+    		// get the time that the vehicle has been traveling in this direction
 			end_time = msTicks;
 			total_time = end_time - start_time;
 			vehicle_direction_data.cur_dir_time = total_time;
@@ -646,7 +652,7 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
     	}
     	// release access to vehicle direction
     	OSMutexPost (&vehicle_direction_mutex, OS_OPT_POST_NONE, &err);
-		// set the event flag for the speed setpoint change
+		// set the event flag for the direction change
 		OSFlagPost ((OS_FLAG_GRP *) &vehicle_monitor_flg,
 			(OS_FLAGS)      0x02,
 			(OS_OPT)        OS_OPT_POST_FLAG_SET,
@@ -826,6 +832,7 @@ static  void  Ex_MainLedOutputTask (void  *p_arg)
 			(CPU_TS *)      NULL,
 			(RTOS_ERR *)    &err);
 
+    	// Determine the various cases from the flag set by the vehicle monitor task
     	if (flag & 0b00000001) {
     		speed75 = 1;
     	}
@@ -918,6 +925,7 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
     	cur_dir = vehicle_direction_data.cur_dir;
     	// release access to speed
     	OSMutexPost (&vehicle_direction_mutex, OS_OPT_POST_NONE, &err);
+    	// Format strings
         sprintf(speedString, "Speed: %d MPH", cur_speed);
         if (cur_dir == 1) {
         	sprintf(dirString2, "Hard Left");
@@ -934,6 +942,7 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
         else {
         	sprintf(dirString2, "Straight");
         }
+        // write the strings to the LCD
         GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNormal8x8);
         gc.backgroundColor = White;
         gc.foregroundColor = Black;
@@ -944,7 +953,7 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
         /* Update display */
         DMD_updateDisplay();
         /* Delay Start Task execution for  */
-		OSTimeDly( 10,OS_OPT_TIME_PERIODIC,&err);
+		OSTimeDly( 10,OS_OPT_TIME_DLY,&err);
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
