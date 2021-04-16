@@ -61,6 +61,8 @@
 #include "display.h"
 #include <string.h>
 #include "glib.h"
+
+#include <math.h>
 /*
 *********************************************************************************************************
 *********************************************************************************************************
@@ -70,20 +72,18 @@
 */
 
 #define  EX_MAIN_START_TASK_PRIO              		20u
-#define  EX_MAIN_LED_OUTPUT_TASK_PRIO           	21u
-#define  EX_MAIN_VEHICLE_DIRECTION_TASK_PRIO    	22u
-#define  EX_MAIN_SPEED_SETPOINT_TASK_PRIO       	23u
-#define  EX_MAIN_VEHICLE_MONITOR_TASK_PRIO	    	23u
-#define  EX_MAIN_LCD_DISPLAY_TASK_PRIO    			23u
-#define  EX_MAIN_IDLE_TASK_PRIO              		24u
+#define  EX_MAIN_FORCE_TASK_PRIO       				21u
+#define  EX_MAIN_PHYSICS_TASK_PRIO    				22u
+#define  EX_MAIN_GAIN_TASK_PRIO	    				23u
+#define  EX_MAIN_LCD_DISPLAY_TASK_PRIO    			24u
+#define  EX_MAIN_IDLE_TASK_PRIO              		25u
 
 #define  EX_MAIN_START_TASK_STK_SIZE         		512u
-#define  EX_MAIN_LED_OUTPUT_TASK_STK_SIZE			512u
-#define  EX_MAIN_IDLE_TASK_STK_SIZE			 		512u
-#define  EX_MAIN_SPEED_SETPOINT_TASK_STK_SIZE	    512u
-#define  EX_MAIN_VEHICLE_DIRECTION_TASK_STK_SIZE	512u
-#define  EX_MAIN_VEHICLE_MONITOR_TASK_STK_SIZE		512u
+#define  EX_MAIN_PHYSICS_TASK_STK_SIZE			 	512u
+#define  EX_MAIN_FORCE_TASK_STK_SIZE	    		512u
+#define  EX_MAIN_GAIN_TASK_STK_SIZE					512u
 #define  EX_MAIN_LCD_DISPLAY_TASK_STK_SIZE	    	512u
+#define  EX_MAIN_IDLE_TASK_STK_SIZE					512u
 /*
 *********************************************************************************************************
 *********************************************************************************************************
@@ -102,25 +102,20 @@ static  CPU_STK  Ex_MainIdleTaskStk[EX_MAIN_IDLE_TASK_STK_SIZE];
 /* Idle Task TCB.                                      */
 static  OS_TCB   Ex_MainIdleTaskTCB;
 
-/* LedOutput Task Stack.                                    */
-static  CPU_STK  Ex_MainLedOutputTaskStk[EX_MAIN_LED_OUTPUT_TASK_STK_SIZE];
-/* LedOutput Task TCB.                                      */
-static  OS_TCB   Ex_MainLedOutputTaskTCB;
-
 /* Speed Setpoint Task Stack.                                    */
-static  CPU_STK  Ex_MainSpeedSetpointTaskStk[EX_MAIN_SPEED_SETPOINT_TASK_STK_SIZE];
+static  CPU_STK  Ex_MainPhysicsTaskStk[EX_MAIN_PHYSICS_TASK_STK_SIZE];
 /* Speed Setpoint Task TCB.                                      */
-static  OS_TCB   Ex_MainSpeedSetpointTaskTCB;
+static  OS_TCB   Ex_MainPhysicsTaskTCB;
 
 /* Vehicle Direction Task Stack.                                    */
-static  CPU_STK  Ex_MainVehicleDirectionTaskStk[EX_MAIN_VEHICLE_DIRECTION_TASK_STK_SIZE];
+static  CPU_STK  Ex_MainForceTaskStk[EX_MAIN_FORCE_TASK_STK_SIZE];
 /* LedOutput Task TCB.                                      */
-static  OS_TCB   Ex_MainVehicleDirectionTaskTCB;
+static  OS_TCB   Ex_MainForceTaskTCB;
 
 /* Vehicle Monitoring Task Stack.                                    */
-static  CPU_STK  Ex_MainVehicleMonitorTaskStk[EX_MAIN_VEHICLE_MONITOR_TASK_STK_SIZE];
+static  CPU_STK  Ex_MainGainTaskStk[EX_MAIN_GAIN_TASK_STK_SIZE];
 /* LedOutput Task TCB.                                      */
-static  OS_TCB   Ex_MainVehicleMonitorTaskTCB;
+static  OS_TCB   Ex_MainGainTaskTCB;
 
 /* LCD Display Task Stack.                                    */
 static  CPU_STK  Ex_MainLcdDisplayTaskStk[EX_MAIN_LCD_DISPLAY_TASK_STK_SIZE];
@@ -130,29 +125,33 @@ static  OS_TCB   Ex_MainLcdDisplayTaskTCB;
 /* Create OS Task Flags */
 
 /* Create OS Task Flags for vehicle monitor task*/
-static OS_FLAG_GRP	vehicle_monitor_flg;
+static OS_FLAG_GRP	input_flag;
 
 /* Create OS Task Flags for LED task*/
-static OS_FLAG_GRP	led_output_flg;
+static OS_FLAG_GRP	output_flag;
 
 /* Create semaphore */
-static OS_SEM		sem;
+static OS_SEM		timer_sem;
 
 /* Create semaphore to keep track of btn action additions to fifo*/
 static OS_SEM		fifo_sem;
 
 /* Create a mutex to protect access to speed setpoint data */
-static OS_MUTEX  	speed_setpoint_mutex;
+static OS_MUTEX  	gain_mutex;
 
 /* Create a mutex to protect access to vehicle direction data */
-static OS_MUTEX  	vehicle_direction_mutex;
+static OS_MUTEX  	physics_mutex;
 
 /* Create OS Timer */
 static OS_TMR		tmr;
 
+/* Create Message Queue */
+static OS_Q			queue;
+static OS_MSG_SIZE  msg_size = sizeof(int);
+
 /* Create an enum to store vehicle direction states */
-enum vehicle_dir_state {
-	straight,
+enum force {
+	none,
 	hard_left,
 	soft_left,
 	soft_right,
@@ -160,9 +159,6 @@ enum vehicle_dir_state {
 };
 
 /* Declare a fifo for button actions */
-//struct node_t* btn0_fifo;
-//struct node_t* btn1_fifo;
-
 #define FIFO_LEN	10
 uint8_t btn0_fifo[FIFO_LEN];
 uint8_t btn1_fifo[FIFO_LEN];
@@ -171,29 +167,32 @@ uint8_t btn0_fifo_wr;
 uint8_t btn1_fifo_rd;
 uint8_t btn1_fifo_wr;
 
-// Debug variable purely for debug purposes
-int debug_flag;
+// global gain and force ints
+uint32_t gain_data;
+double force_data;
 
-// Data types for Car simulation
-struct speed_setpoint_data_struct {
-	uint8_t cur_speed;
-	uint8_t up_cnt;
-	uint8_t dn_cnt;
-} speed_setpoint_data;
-
-struct vehicle_direction_data_struct {
-	uint8_t cur_dir;
-	uint32_t cur_dir_time;
-	uint8_t left_cnt;
-	uint8_t right_cnt;
-} vehicle_direction_data;
+// Data types for tasks
+struct physics_data_struct {
+	double gravity;
+	double bob_mass;
+	double cart_mass;
+	double len;
+	uint32_t graph_lim;
+	uint32_t xmin;
+	uint32_t xmax;
+	double time;
+	double theta;
+	double x_pos;
+	double w;
+	double v;
+} physics_data;
 
 /* Global glib context */
 GLIB_Context_t gc;
 
 // System time
 static volatile uint32_t msTicks; /* counts 1ms timeTicks */
-
+static volatile uint32_t start = 0; /* counts 1ms timeTicks */
 
 /*
 *********************************************************************************************************
@@ -205,10 +204,9 @@ static volatile uint32_t msTicks; /* counts 1ms timeTicks */
 // task main functions
 static  void  Ex_MainStartTask (void  *p_arg);
 static  void  Ex_MainIdleTask (void  *p_arg);
-static  void  Ex_MainLedOutputTask (void  *p_arg);
-static  void  Ex_MainSpeedSetpointTask (void  *p_arg);
-static  void  Ex_MainVehicleDirectionTask (void  *p_arg);
-static  void  Ex_MainVehicleMonitorTask (void  *p_arg);
+static  void  Ex_MainPhysicsTask (void  *p_arg);
+static  void  Ex_MainForceTask (void  *p_arg);
+static  void  Ex_MainGainTask (void  *p_arg);
 static  void  Ex_MainLcdDisplayTask (void  *p_arg);
 // callback function for OSTimer
 static void MyCallback(OS_TMR p_tmr, void *p_arg);
@@ -244,6 +242,26 @@ static void MyCallback(OS_TMR p_tmr, void *p_arg);
 * Note(s)     : None.
 *********************************************************************************************************
 */
+
+
+double dthetadt(double w) {
+    return w;
+}
+
+double dxdt(double v) {
+    return v;
+}
+
+double dwdt(double F, double theta, double w, double L, double M, double m, double g) {
+    return ( 1/((M+m) - m*cos(theta)*cos(theta)) * (F*cos(theta)/L + (g/L)*((M+m)*sin(theta)) - m*w*w*sin(theta)*cos(theta)) );
+}
+
+double dvdt(double F, double theta, double w, double L, double M, double m, double g) {
+    return ( 1/( cos(theta)*cos(theta) - (M+m)/(m)) * ( (w*w*L*sin(theta) - F/(m) - g*sin(theta)*cos(theta)) ) );
+}
+
+
+
 /***************************************************************************//**
  * @brief
  *   Creates the Startup Task and then begins the OS.
@@ -325,6 +343,7 @@ static  void  Ex_MainStartTask (void  *p_arg)
                                                                 /* ... the platform manager at this moment.             */
     // initialize common modules for all tasks
     cmu_open();
+    gpio_open();
     /* Create the Idle Task.                               */
     OSTaskCreate(&Ex_MainIdleTaskTCB,
                  "Ex Main Idle Task",
@@ -339,57 +358,43 @@ static  void  Ex_MainStartTask (void  *p_arg)
                   DEF_NULL,
                  (OS_OPT_TASK_STK_CLR),
                  &err);
-    /* Create the Led Output Task.                               */
-    OSTaskCreate(&Ex_MainLedOutputTaskTCB,
-                 "Ex Main Led Output Task",
-                  Ex_MainLedOutputTask,
-                  DEF_NULL,
-                  EX_MAIN_LED_OUTPUT_TASK_PRIO,
-                 &Ex_MainLedOutputTaskStk[0],
-                 (EX_MAIN_LED_OUTPUT_TASK_STK_SIZE / 10u),
-                  EX_MAIN_LED_OUTPUT_TASK_STK_SIZE,
-                  0u,
-                  0u,
-                  DEF_NULL,
-                 (OS_OPT_TASK_STK_CLR),
-                 &err);
     /* Create the Speed Setpoint Task.                               */
-    OSTaskCreate(&Ex_MainSpeedSetpointTaskTCB,
-                 "Ex Main Speed Setpoint Task",
-                  Ex_MainSpeedSetpointTask,
+    OSTaskCreate(&Ex_MainPhysicsTaskTCB,
+                 "Ex Main Physics Task",
+                  Ex_MainPhysicsTask,
                   DEF_NULL,
-                  EX_MAIN_SPEED_SETPOINT_TASK_PRIO,
-                 &Ex_MainSpeedSetpointTaskStk[0],
-                 (EX_MAIN_SPEED_SETPOINT_TASK_STK_SIZE / 10u),
-                  EX_MAIN_SPEED_SETPOINT_TASK_STK_SIZE,
+                  EX_MAIN_PHYSICS_TASK_PRIO,
+                 &Ex_MainPhysicsTaskStk[0],
+                 (EX_MAIN_PHYSICS_TASK_STK_SIZE / 10u),
+                  EX_MAIN_PHYSICS_TASK_STK_SIZE,
                   0u,
                   0u,
                   DEF_NULL,
                  (OS_OPT_TASK_STK_CLR),
                  &err);
     /* Create the Vehicle Direction Task.                               */
-    OSTaskCreate(&Ex_MainVehicleDirectionTaskTCB,
-                 "Ex Main Vehicle Direction Task",
-                  Ex_MainVehicleDirectionTask,
+    OSTaskCreate(&Ex_MainForceTaskTCB,
+                 "Ex Main Force Task",
+                  Ex_MainForceTask,
                   DEF_NULL,
-                  EX_MAIN_VEHICLE_DIRECTION_TASK_PRIO,
-                 &Ex_MainVehicleDirectionTaskStk[0],
-                 (EX_MAIN_VEHICLE_DIRECTION_TASK_STK_SIZE / 10u),
-                  EX_MAIN_VEHICLE_DIRECTION_TASK_STK_SIZE,
+                  EX_MAIN_FORCE_TASK_PRIO,
+                 &Ex_MainForceTaskStk[0],
+                 (EX_MAIN_FORCE_TASK_STK_SIZE / 10u),
+                  EX_MAIN_FORCE_TASK_STK_SIZE,
                   0u,
                   0u,
                   DEF_NULL,
                  (OS_OPT_TASK_STK_CLR),
                  &err);
     /* Create the Vehicle Monitor Task.                               */
-    OSTaskCreate(&Ex_MainVehicleMonitorTaskTCB,
-                 "Ex Main Vehicle Monitor Task",
-                  Ex_MainVehicleMonitorTask,
+    OSTaskCreate(&Ex_MainGainTaskTCB,
+                 "Ex Main Gain Task",
+                  Ex_MainGainTask,
                   DEF_NULL,
-                  EX_MAIN_VEHICLE_MONITOR_TASK_PRIO,
-                 &Ex_MainVehicleMonitorTaskStk[0],
-                 (EX_MAIN_VEHICLE_MONITOR_TASK_STK_SIZE / 10u),
-                  EX_MAIN_VEHICLE_MONITOR_TASK_STK_SIZE,
+                  EX_MAIN_GAIN_TASK_PRIO,
+                 &Ex_MainGainTaskStk[0],
+                 (EX_MAIN_GAIN_TASK_STK_SIZE / 10u),
+                  EX_MAIN_GAIN_TASK_STK_SIZE,
                   0u,
                   0u,
                   DEF_NULL,
@@ -411,19 +416,19 @@ static  void  Ex_MainStartTask (void  *p_arg)
                  &err);
     // Create the event flag
     OSFlagCreate((OS_FLAG_GRP *)
-    		&vehicle_monitor_flg,
-			(CPU_CHAR *) "vehicle monitor flag",
+    		&input_flag,
+			(CPU_CHAR *) "input flag",
 			(OS_FLAGS) 0,
 			(RTOS_ERR *)&err);
     // Create the event flag
     OSFlagCreate((OS_FLAG_GRP *)
-    		&led_output_flg,
-			(CPU_CHAR *) "led output flag",
+    		&output_flag,
+			(CPU_CHAR *) "output flag",
 			(OS_FLAGS) 0,
 			(RTOS_ERR *)&err);
     // Create the semaphore
-    OSSemCreate ((OS_SEM *) &sem,
-            (CPU_CHAR *) "Slider Semaphore",
+    OSSemCreate ((OS_SEM *) &timer_sem,
+            (CPU_CHAR *) "Slider Timer Semaphore",
             (OS_SEM_CTR) 0,
             (RTOS_ERR *) &err);
     // Create the semaphore
@@ -434,20 +439,26 @@ static  void  Ex_MainStartTask (void  *p_arg)
     // Create the OSTimer
     OSTmrCreate ((OS_TMR *) &tmr,
 			(CPU_CHAR *) "OS Timer",
-			(OS_TICK) 10,
-			(OS_TICK) 10,
+			(OS_TICK) 5,
+			(OS_TICK) 5,
 			(OS_OPT) OS_OPT_TMR_PERIODIC,
 			(OS_TMR_CALLBACK_PTR) &MyCallback,
 			(void *) 0,
 			(RTOS_ERR *) &err);
     // Create the mutex
-    OSMutexCreate ((OS_MUTEX *) &speed_setpoint_mutex,
-			(CPU_CHAR *) "Speed Setpoint Mutex",
+    OSMutexCreate ((OS_MUTEX *) &physics_mutex,
+			(CPU_CHAR *) "Physics Mutex",
 			(RTOS_ERR *) &err);
     // Create the mutex
-    OSMutexCreate ((OS_MUTEX *) &vehicle_direction_mutex,
-			(CPU_CHAR *) "Vehicle Direction Mutex",
+    OSMutexCreate ((OS_MUTEX *) &gain_mutex,
+			(CPU_CHAR *) "Gain Mutex",
 			(RTOS_ERR *) &err);
+    // Create the message queue
+    OSQCreate((OS_Q	*)
+    		&queue,
+			(CPU_CHAR *)"Message Queue",
+			(OS_MSG_QTY)4,
+			(RTOS_ERR *)&err);
     // Declare the two FIFOs
     btn0_fifo_rd = 0;
     btn0_fifo_wr = 0;
@@ -461,6 +472,9 @@ static  void  Ex_MainStartTask (void  *p_arg)
     if (SysTick_Config(SystemCoreClockGet() / 1000)) {
       while (1) ;
     }
+
+    // suspend the start task once all init is done
+    OSTaskSuspend (&Ex_MainStartTaskTCB, &err);
 
     while (DEF_ON) {
         /* Delay Start Task execution for                       */
@@ -497,7 +511,7 @@ static  void  Ex_MainIdleTask (void  *p_arg)
     while (DEF_ON) {
     	EMU_EnterEM1();
         /* Delay Start Task execution for                       */
-		OSTimeDly( 10, OS_OPT_TIME_DLY, &err);
+//		OSTimeDly(10, OS_OPT_TIME_DLY, &err);
         /*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
@@ -515,59 +529,98 @@ static  void  Ex_MainIdleTask (void  *p_arg)
  *
  ******************************************************************************/
 
-static  void  Ex_MainSpeedSetpointTask (void  *p_arg)
+static  void  Ex_MainPhysicsTask (void  *p_arg)
 {
     RTOS_ERR  err;
-    uint8_t btn0_status = 0;
-    uint8_t btn1_status = 0;
-
-
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
-
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
     CPU_IntDisMeasMaxCurReset();                                /* Initialize interrupts disabled measurement.          */
 #endif
                                                                 /* ... the platform manager at this moment.             */
-    buttons_setup();
-    while (DEF_ON) {
-    	// pend on semaphore
-    	OSSemPend (&fifo_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-    	// perform fifo operations atomically
-    	CORE_DECLARE_IRQ_STATE;           // Storage for saving IRQ state prior
-    	CORE_ENTER_ATOMIC();
-    	// interpret results from fifo 0
-    	if (!fifo_isempty(btn0_fifo, &btn0_fifo_wr, &btn0_fifo_rd)) {
-    		btn0_status = fifo_pop(btn0_fifo, &btn0_fifo_rd, FIFO_LEN);
-    	}
-    	// interpret results from fifo 1
-    	if (!fifo_isempty(btn1_fifo, &btn1_fifo_wr, &btn1_fifo_rd)) {
-    		btn1_status = fifo_pop(btn1_fifo, &btn1_fifo_rd, FIFO_LEN);
-    	}
-		CORE_EXIT_ATOMIC();
-    	// obtain access to speed setpoint
-    	OSMutexPend (&speed_setpoint_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-    	// access speed setpoint data structure here
-    	if (btn0_status != 0) {
-    		speed_setpoint_data.up_cnt++;
-    		speed_setpoint_data.cur_speed += 5;
-    	}
-    	if (btn1_status != 0) {
-    		speed_setpoint_data.dn_cnt++;
-    		if (speed_setpoint_data.cur_speed > 0) {
-    			speed_setpoint_data.cur_speed -= 5;
-    		}
-    	}
-    	// release access to speed setpoint
-    	OSMutexPost (&speed_setpoint_mutex, OS_OPT_POST_NONE, &err);
 
-    	// set the event flag for the speed setpoint change
-		OSFlagPost ((OS_FLAG_GRP *) &vehicle_monitor_flg,
-			(OS_FLAGS)      0x01,
-			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-			(RTOS_ERR *)	&err);
+    uint32_t start_time = 0;
+    // set the initial conditions
+	physics_data.gravity = 9.81;
+	physics_data.bob_mass = 20;
+	physics_data.cart_mass = 20;
+	physics_data.len = 50;
+	physics_data.graph_lim = 100;
+	physics_data.xmin = 0;
+	physics_data.xmax = 125;
+	physics_data.time = 0;
+	physics_data.theta = 0.01;
+	physics_data.x_pos = 0;
+	physics_data.w = 0;
+	physics_data.v = 0;
+    uint8_t game_reset = 0;
+    double v_int;
+    double w_int;
+    double x_int;
+    double theta_int;
+    uint32_t x_min;
+    uint32_t x_max;
+
+    while (DEF_ON) {
+    	// pend on the semaphore that is to be posted by the OSTimer counter handler
+//        OSSemPend (&timer_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	if (!game_reset) {
+    		// get the end time of the last iteration
+    		uint32_t end_time = msTicks;
+    		double dt = (double)(end_time-start_time)/1000;
+        	double F = force_data*gain_data;
+
+        	// obtain access to physics data
+        	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+        	double x = physics_data.x_pos;
+        	double v = physics_data.v;
+        	double theta = physics_data.theta;
+        	double w = physics_data.w;
+        	double L = physics_data.len;
+        	double M = physics_data.cart_mass;
+        	double m = physics_data.bob_mass;
+        	double g = physics_data.gravity;
+        	x_min = physics_data.xmin;
+        	x_max = physics_data.xmax;
+        	// release access to physics data
+        	OSMutexPost (&physics_mutex, OS_OPT_POST_NONE, &err);
+
+            // Roses are red. Violets are blue. I love C. How about U?
+            v_int = v + dt*dvdt(F, theta, w, L, M, m, g);
+            // In semi-implicit Euler, update the position coordinate using the
+            // velocity at the new time.
+            x_int = x + dt*dxdt(v_int);
+            // Similarly for the angles.
+            w_int = w + dt*dwdt(F, theta, w, L, M, m, g);
+            theta_int = theta + dt*dthetadt(w_int);
+            physics_data.time += dt;
+
+        	// obtain access to physics data
+        	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+        	physics_data.time += dt;
+        	physics_data.x_pos = x_int;
+        	physics_data.v = v_int;
+        	physics_data.w = w_int;
+        	physics_data.theta = theta_int;
+        	// release access to physics data
+        	OSMutexPost (&physics_mutex, OS_OPT_POST_NONE, &err);
+
+        	// get the start time for the next iteration
+            start_time = msTicks;
+
+            if (fabs(theta_int) > 1.57) {
+            	game_reset = 1;
+            }
+            if (((int) (66 + x_int - sin(theta_int)*50)) < x_min||
+            		((int) (66 + x_int - sin(theta_int)*50)) > x_max) {
+            	game_reset = 1;
+            }
+    	}
+    	else {
+        	GPIO_PinOutSet(LED0_port, LED0_pin);
+    	}
 
         /* Delay Start Task execution for  */
-		OSTimeDly( 10, OS_OPT_TIME_DLY, &err);
+		OSTimeDly(8, OS_OPT_TIME_DLY, &err);
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
@@ -583,14 +636,11 @@ static  void  Ex_MainSpeedSetpointTask (void  *p_arg)
  *
  ******************************************************************************/
 
-static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
+static  void  Ex_MainForceTask (void  *p_arg)
 {
     RTOS_ERR  err;
     uint8_t slider_pos;
-    // Declare variable for system time
-    uint32_t start_time = 0;
-    uint32_t end_time = 0;
-    uint32_t total_time = 0;
+    double nominal_force = 100.0;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
@@ -600,66 +650,31 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
                                                                 /* ... the platform manager at this moment.             */
     slider_setup();
     while (DEF_ON) {
-    	// pend on the semaphore that is to be posted by the OSTimer counter handler
-        OSSemPend (&sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	OSSemPend (&timer_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
         // retrieve the slider status
         slider_position(&slider_pos);
 
-    	// lock access to vehicle direction data structure using mutex
-    	OSMutexPend (&vehicle_direction_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-    	// modify vehicle direction
-    	uint8_t prev_vehicle_direction = vehicle_direction_data.cur_dir;
-    	vehicle_direction_data.cur_dir = slider_pos;
-
-    	// see if still traveling in same direction
-    	// see if vehicle traveling left
-    	if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
-    		// if we are now in a new direction, start the timer
-    		if (prev_vehicle_direction != HARD_LEFT && prev_vehicle_direction != SOFT_LEFT) {
-    			start_time = msTicks;
-    		}
-    		// get the time that the vehicle has been traveling in this direction
-    		end_time = msTicks;
-    		total_time = end_time - start_time;
-    		vehicle_direction_data.cur_dir_time = total_time;
-    	}
-    	// see if traveling right
-    	else if (slider_pos == HARD_RIGHT || slider_pos == SOFT_RIGHT) {
-    		if (prev_vehicle_direction != HARD_RIGHT && prev_vehicle_direction != SOFT_RIGHT) {
-				start_time = msTicks;
-			}
-    		// get the time that the vehicle has been traveling in this direction
-			end_time = msTicks;
-			total_time = end_time - start_time;
-			vehicle_direction_data.cur_dir_time = total_time;
-    	}
-    	// see if traveling straight
-    	else if (slider_pos == INACTIVE) {
-    		if (prev_vehicle_direction != INACTIVE) {
-				start_time = msTicks;
-			}
-    		// get the time that the vehicle has been traveling in this direction
-			end_time = msTicks;
-			total_time = end_time - start_time;
-			vehicle_direction_data.cur_dir_time = total_time;
-    	}
-    	// upgrade the count
-    	if (slider_pos == HARD_LEFT || slider_pos == SOFT_LEFT) {
-    		vehicle_direction_data.left_cnt++;
-    	}
-    	else if (slider_pos == HARD_RIGHT || slider_pos == SOFT_RIGHT) {
-    		vehicle_direction_data.right_cnt++;
-    	}
-    	// release access to vehicle direction
-    	OSMutexPost (&vehicle_direction_mutex, OS_OPT_POST_NONE, &err);
-		// set the event flag for the direction change
-		OSFlagPost ((OS_FLAG_GRP *) &vehicle_monitor_flg,
-			(OS_FLAGS)      0x02,
-			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-			(RTOS_ERR *)	&err);
-
-    	/* Delay Start Task execution for  */
-		OSTimeDly( 10,OS_OPT_TIME_DLY,&err);
+        switch (slider_pos) {
+        case INACTIVE:
+        	force_data = 0;
+        	break;
+        case HARD_LEFT:
+        	force_data = -1.5*nominal_force;
+        	break;
+        case SOFT_LEFT:
+        	force_data = -1*nominal_force;
+        	break;
+        case SOFT_RIGHT:
+        	force_data = nominal_force;
+        	break;
+        case HARD_RIGHT:
+        	force_data = 1.5*nominal_force;
+        	break;
+        default:
+        	break;
+        }
+//        /* Delay Start Task execution for  */
+//		OSTimeDly(100, OS_OPT_TIME_DLY, &err);
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
@@ -675,200 +690,45 @@ static  void  Ex_MainVehicleDirectionTask (void  *p_arg)
  *
  ******************************************************************************/
 
-static  void  Ex_MainVehicleMonitorTask (void  *p_arg)
+static  void  Ex_MainGainTask (void  *p_arg)
 {
     RTOS_ERR  err;
-    OS_FLAGS flag;
-    uint8_t cur_speed;
-    uint32_t cur_dir_time;
-    uint8_t cur_dir;
+    gain_data = 0;
+    uint8_t btn0_status = 0;
+    uint8_t btn1_status = 0;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
     CPU_IntDisMeasMaxCurReset();                                /* Initialize interrupts disabled measurement.          */
 #endif
-                                                                /* ... the platform manager at this moment.             */
+    buttons_setup();                                           /* ... the platform manager at this moment.             */
+    gain_data = 6;
     while (DEF_ON) {
-    	// check the event flag
-    	flag = OSFlagPend ((OS_FLAG_GRP  *) &vehicle_monitor_flg,
-			(OS_FLAGS)      0x03,
-			(OS_TICK)       0,
-			(OS_OPT)        OS_OPT_PEND_FLAG_SET_ANY + OS_OPT_PEND_BLOCKING + OS_OPT_PEND_FLAG_CONSUME,
-			(CPU_TS *)      NULL,
-			(RTOS_ERR *)    &err);
+    	// pend on semaphore
+    	OSSemPend (&fifo_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	// perform fifo operations atomically
+    	CORE_DECLARE_IRQ_STATE;           // Storage for saving IRQ state prior
+    	CORE_ENTER_ATOMIC();
+    	// interpret results from fifo 0
+    	if (!fifo_isempty(btn0_fifo, &btn0_fifo_wr, &btn0_fifo_rd)) {
+    		btn0_status = fifo_pop(btn0_fifo, &btn0_fifo_rd, FIFO_LEN);
+    	}
+    	// interpret results from fifo 1
+    	if (!fifo_isempty(btn1_fifo, &btn1_fifo_wr, &btn1_fifo_rd)) {
+    		btn1_status = fifo_pop(btn1_fifo, &btn1_fifo_rd, FIFO_LEN);
+    	}
+		CORE_EXIT_ATOMIC();
 
-    	// Check for changes to various parameters
-    	switch(flag) {
-    	// Speed Change
-    	case 0x01:
-        	// lock access to speed data structure using mutex
-        	OSMutexPend (&speed_setpoint_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-        	cur_speed = speed_setpoint_data.cur_speed;
-        	// release access to speed
-        	OSMutexPost (&speed_setpoint_mutex, OS_OPT_POST_NONE, &err);
-        	break;
-		// Direction Change
-		case 0x02:
-			// lock access to vehicle direction data structure using mutex
-			OSMutexPend (&vehicle_direction_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-			cur_dir_time = vehicle_direction_data.cur_dir_time;
-			cur_dir = vehicle_direction_data.cur_dir;
-			// release access to vehicle direction
-			OSMutexPost (&vehicle_direction_mutex, OS_OPT_POST_NONE, &err);
-			break;
-		default:
-			break;
+		if (btn0_status && (gain_data > 0)) {
+			gain_data-=2;
 		}
-    	// set the event flag for the led output for speeding 75 over
-    	if (cur_speed >= 75) {
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x02,
-    			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
-    			(RTOS_ERR *)	&err);
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x01,
-    			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-    			(RTOS_ERR *)	&err);
-    	}
-    	// set the event flag for the led output
-    	else {
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x01,
-    			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
-    			(RTOS_ERR *)	&err);
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x02,
-    			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-    			(RTOS_ERR *)	&err);
-    	}
-    	// set the event flag for the led output for turning while 45 over
-    	if (cur_speed >= 45 && cur_dir != straight) {
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x08,
-    			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
-    			(RTOS_ERR *)	&err);
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x04,
-    			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-    			(RTOS_ERR *)	&err);
-    	}
-    	// set the event flag for the led output
-    	else {
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x04,
-    			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
-    			(RTOS_ERR *)	&err);
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x08,
-    			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-    			(RTOS_ERR *)	&err);
-    	}
+		else if (btn1_status && (gain_data < 20)) {
+			gain_data+=2;
+		}
 
-    	// set the event flag for the led output for going in same direction for at least 5 seconds
-    	if (cur_dir_time > 5000) {
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x20,
-    			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
-    			(RTOS_ERR *)	&err);
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x10,
-    			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-    			(RTOS_ERR *)	&err);
-    	}
-    	// set the event flag for the led output
-    	else {
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x10,
-    			(OS_OPT)        OS_OPT_POST_FLAG_CLR,
-    			(RTOS_ERR *)	&err);
-    		OSFlagPost ((OS_FLAG_GRP *) &led_output_flg,
-    			(OS_FLAGS)      0x20,
-    			(OS_OPT)        OS_OPT_POST_FLAG_SET,
-    			(RTOS_ERR *)	&err);
-    	}
-		/* Delay Start Task execution for  */
-		OSTimeDly( 10, OS_OPT_TIME_DLY, &err);
 		/*   Check error code.                                  */
 		APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
-    }
-}
-
-
-/***************************************************************************//**
- * @brief
- *   Drives the LEDs based on the pushbutton and slider values.
- *
- * @details
- * 	 This task is used to display warning flags on the LEDs
- *
- *
- ******************************************************************************/
-
-static  void  Ex_MainLedOutputTask (void  *p_arg)
-{
-    RTOS_ERR  err;
-    OS_FLAGS flag;
-    uint8_t speed75;
-    uint8_t turn45;
-    uint8_t samefor5;
-
-    PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
-
-#ifdef CPU_CFG_INT_DIS_MEAS_EN
-    CPU_IntDisMeasMaxCurReset();                                /* Initialize interrupts disabled measurement.          */
-#endif
-                                                                /* ... the platform manager at this moment.             */
-    gpio_open();
-    while (DEF_ON) {
-        speed75 = 0;
-        turn45 = 0;
-        samefor5 = 0;
-    	// check the event flag
-    	flag = OSFlagPend ((OS_FLAG_GRP  *) &led_output_flg,
-			(OS_FLAGS)      0xFF,
-			(OS_TICK)       0,
-			(OS_OPT)        OS_OPT_PEND_FLAG_SET_ANY + OS_OPT_PEND_BLOCKING,
-			(CPU_TS *)      NULL,
-			(RTOS_ERR *)    &err);
-
-    	// Determine the various cases from the flag set by the vehicle monitor task
-    	if (flag & 0b00000001) {
-    		speed75 = 1;
-    	}
-    	else {
-    		speed75 = 0;
-    	}
-    	if (flag & 0b00000100) {
-    		turn45 = 1;
-    	}
-    	else {
-    		turn45 = 0;
-    	}
-    	if (flag & 0b00010000) {
-    		samefor5 = 1;
-    	}
-    	else {
-    		samefor5 = 0;
-    	}
-    	// If over 75 or turning while over 45, turn on LED0
-    	if (speed75 || turn45) {
-    		GPIO_PinOutSet(LED0_port, LED0_pin);
-    	}
-    	else {
-    		GPIO_PinOutClear(LED0_port, LED0_pin);
-    	}
-    	// If straight for more than 5, turn on LED 1
-    	if (samefor5) {
-    		GPIO_PinOutSet(LED1_port, LED1_pin);
-    	}
-    	else {
-    		GPIO_PinOutClear(LED1_port, LED1_pin);
-    	}
-        /* Delay Start Task execution for  */
-		OSTimeDly( 10,OS_OPT_TIME_DLY,&err);
-		/*   Check error code.                                  */
-        APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
 }
 
@@ -886,11 +746,6 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
 {
     RTOS_ERR  err;
     EMSTATUS status;
-    char speedString[16];
-    char dirString1[16] = "Direction:";
-    char dirString2[16];
-    uint8_t cur_speed;
-    uint8_t cur_dir;
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
@@ -914,46 +769,46 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
       while (true)
         ;
     }
+    GLIB_Rectangle_t pRect;
+    double len = 50;
+    char time[4];
+    double x_pos;
+    double phy_time;
+    double theta;
     while (DEF_ON) {
-    	// lock access to speed data structure using mutex
-    	OSMutexPend (&speed_setpoint_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-    	cur_speed = speed_setpoint_data.cur_speed;
-    	// release access to speed
-    	OSMutexPost (&speed_setpoint_mutex, OS_OPT_POST_NONE, &err);
-    	// lock access to speed data structure using mutex
-    	OSMutexPend (&vehicle_direction_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-    	cur_dir = vehicle_direction_data.cur_dir;
-    	// release access to speed
-    	OSMutexPost (&vehicle_direction_mutex, OS_OPT_POST_NONE, &err);
-    	// Format strings
-        sprintf(speedString, "Speed: %d MPH", cur_speed);
-        if (cur_dir == 1) {
-        	sprintf(dirString2, "Hard Left");
-        }
-        else if (cur_dir == 2) {
-        	sprintf(dirString2, "Soft Left");
-        }
-        else if (cur_dir == 3) {
-        	sprintf(dirString2, "Soft Right");
-        }
-        else if (cur_dir == 4) {
-        	sprintf(dirString2, "Hard Right");
-        }
-        else {
-        	sprintf(dirString2, "Straight");
-        }
-        // write the strings to the LCD
-        GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNormal8x8);
-        gc.backgroundColor = White;
-        gc.foregroundColor = Black;
-        GLIB_clear(&gc);
-        GLIB_drawString(&gc, speedString, strlen(speedString), 1, 10, true);
-        GLIB_drawString(&gc, dirString1, strlen(dirString1), 1, 40, true);
-        GLIB_drawString(&gc, dirString2, strlen(dirString2), 1, 60, true);
-        /* Update display */
-        DMD_updateDisplay();
-        /* Delay Start Task execution for  */
-		OSTimeDly( 10,OS_OPT_TIME_DLY,&err);
+    	GLIB_clear(&gc);
+    	GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
+        gc.backgroundColor = Black;
+        gc.foregroundColor = White;
+
+    	// obtain access to physics data
+    	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	x_pos = physics_data.x_pos;
+    	theta = physics_data.theta;
+    	phy_time = physics_data.time;
+    	// release access to physics data
+    	OSMutexPost (&physics_mutex, OS_OPT_POST_NONE, &err);
+
+    	// calculate positions of LCD elements
+        int startx = 66 + x_pos;
+        int starty = 66;
+        int endx = (int) (startx - sin(theta)*len);
+        int endy = (int) (starty - cos(theta)*len);
+        pRect.xMax = startx+10;
+        pRect.xMin = startx-10;
+        pRect.yMax = starty+5;
+        pRect.yMin = starty;
+        // draw LCD shapes
+	    GLIB_drawLine(&gc, startx, starty, endx, endy);
+	    GLIB_drawCircleFilled(&gc, endx, endy, 4);
+	    GLIB_drawRectFilled(&gc, &pRect);
+	    GLIB_drawLine(&gc, 0, 72, 125, 72);
+	    /* Print time */
+	    sprintf(time, "%d", (int) phy_time);
+	    GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNumber16x20);
+	    GLIB_drawString(&gc, time, 4, 52, 90, 0);
+	    /* Update display */
+	    DMD_updateDisplay();
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
@@ -974,8 +829,9 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
  ******************************************************************************/
 static void MyCallback (OS_TMR p_tmr, void *p_arg) {
 	RTOS_ERR  err;
-	OSSemPost (&sem, OS_OPT_POST_ALL, &err);
+	OSSemPost (&timer_sem, OS_OPT_POST_ALL, &err);
 }
+
 
 
 /***************************************************************************//**
@@ -1053,4 +909,13 @@ void GPIO_ODD_IRQHandler(void)
 void SysTick_Handler(void)
 {
   msTicks++;
+  if (msTicks%20 == 0) {
+	  start = msTicks;
+  }
+  if (msTicks < start + gain_data) {
+	  GPIO_PinOutSet(LED1_port, LED1_pin);
+  }
+  else{
+	  GPIO_PinOutClear(LED1_port, LED1_pin);
+  }
 }

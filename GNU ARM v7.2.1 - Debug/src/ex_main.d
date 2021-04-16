@@ -84,7 +84,7 @@ src/ex_main.o: ../src/ex_main.c \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\lib_utils.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_version.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_utils.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\external_copied_files/os_cfg.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_port_sel.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\ports\source\gnu\armv7m_os_cpu.h \
@@ -102,7 +102,7 @@ src/ex_main.o: ../src/ex_main.c \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_gpio.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_bus.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_emu.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Drivers_inc/capsense.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Drivers_inc/capsense.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\capsenseconfig.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_acmp.h \
  ../src/app.h \
@@ -112,7 +112,7 @@ src/ex_main.o: ../src/ex_main.c \
  ../src/buttons.h ../src/slider.h ../src/fifo.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\common\drivers\display.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\common\drivers\emstatus.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Graphics_inc/em_types.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Graphics_inc/em_types.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\common\drivers\displayconfigall.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\displaypalconfig.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\displayconfig.h \
@@ -123,10 +123,10 @@ src/ex_main.o: ../src/ex_main.c \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\textdisplayconfig.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\displayconfig.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\retargettextdisplayconfig.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Graphics_inc/glib.h \
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Graphics_inc/glib.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\middleware\glib\glib\glib_color.h \
  c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\middleware\glib\dmd\dmd.h \
- C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Graphics_inc/em_types.h
+ C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Graphics_inc/em_types.h
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\bsp\siliconlabs\generic\include\bsp_os.h:
 
@@ -298,7 +298,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\common\include\rtos_utils.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\external_copied_files/os_cfg.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\external_copied_files/os_cfg.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\micrium_os\kernel\include\os_type.h:
 
@@ -334,7 +334,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\emlib\inc\em_emu.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Drivers_inc/capsense.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Drivers_inc/capsense.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\capsenseconfig.h:
 
@@ -360,7 +360,7 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\common\drivers\emstatus.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Graphics_inc/em_types.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Graphics_inc/em_types.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\common\drivers\displayconfigall.h:
 
@@ -382,10 +382,10 @@ c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\hardware\kit\slstk3402a_efm32pg12\config\retargettextdisplayconfig.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Graphics_inc/glib.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Graphics_inc/glib.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\middleware\glib\glib\glib_color.h:
 
 c:\siliconlabs\simplicitystudio\v4\developer\sdks\gecko_sdk_suite\v2.7\platform\middleware\glib\dmd\dmd.h:
 
-C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\RTOS_Lab7\Graphics_inc/em_types.h:
+C:\Users\Karston\ Christensen\SimplicityStudio\rtos_workspace\Project\Graphics_inc/em_types.h:
