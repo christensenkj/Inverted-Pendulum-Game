@@ -164,6 +164,8 @@ double force_data;
 
 // Data types for tasks
 struct physics_data_struct {
+	uint8_t version;
+	uint8_t game_state;
 	double gravity;
 	double bob_mass;
 	double cart_mass;
@@ -523,10 +525,12 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
 
     uint32_t start_time = 0;
     // set the initial conditions
+    physics_data.version = 2;
+    physics_data.game_state = 0;
 	physics_data.gravity = 9.81;
 	physics_data.bob_mass = 20;
 	physics_data.cart_mass = 20;
-	physics_data.len = 50;
+	physics_data.len = 30;
 	physics_data.graph_lim = 100;
 	physics_data.xmin = 0;
 	physics_data.xmax = 125;
@@ -593,12 +597,17 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
             if (fabs(theta_int) > 1.57) {
             	game_reset = 1;
             }
-            if (((int) (66 + x_int - sin(theta_int)*50)) < x_min||
-            		((int) (66 + x_int - sin(theta_int)*50)) > x_max) {
+            if (((int) (66 + x_int - sin(theta_int)*40)) < x_min||
+            		((int) (66 + x_int - sin(theta_int)*40)) > x_max) {
             	game_reset = 1;
             }
     	}
     	else {
+    		// obtain access to physics data
+    		OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    		physics_data.game_state = 1;
+        	// release access to physics data
+        	OSMutexPost (&physics_mutex, OS_OPT_POST_NONE, &err);
         	GPIO_PinOutSet(LED0_port, LED0_pin);
     	}
 
@@ -753,11 +762,12 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
         ;
     }
     GLIB_Rectangle_t pRect;
-    double len = 50;
+    double len = 40;
     char time[4];
     double x_pos;
-    double phy_time;
     double theta;
+    uint8_t game_state;
+    uint32_t sys_time;
     while (DEF_ON) {
     	GLIB_clear(&gc);
     	GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
@@ -768,7 +778,7 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
     	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
     	x_pos = physics_data.x_pos;
     	theta = physics_data.theta;
-    	phy_time = physics_data.time;
+		game_state = physics_data.game_state;
     	// release access to physics data
     	OSMutexPost (&physics_mutex, OS_OPT_POST_NONE, &err);
 
@@ -786,8 +796,11 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
 	    GLIB_drawCircleFilled(&gc, endx, endy, 4);
 	    GLIB_drawRectFilled(&gc, &pRect);
 	    GLIB_drawLine(&gc, 0, 72, 125, 72);
-	    /* Print time */
-	    sprintf(time, "%d", (int) phy_time);
+	    if (!game_state) {
+	    	sys_time = (int) (msTicks/1000);
+		    /* Print time */
+		    sprintf(time, "%d", sys_time);
+	    }
 	    GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNumber16x20);
 	    GLIB_drawString(&gc, time, 4, 52, 90, 0);
 	    /* Update display */
