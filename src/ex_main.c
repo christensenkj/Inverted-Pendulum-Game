@@ -145,10 +145,6 @@ static OS_MUTEX  	physics_mutex;
 /* Create OS Timer */
 static OS_TMR		tmr;
 
-/* Create Message Queue */
-static OS_Q			queue;
-static OS_MSG_SIZE  msg_size = sizeof(int);
-
 /* Create an enum to store vehicle direction states */
 enum force {
 	none,
@@ -159,13 +155,8 @@ enum force {
 };
 
 /* Declare a fifo for button actions */
-#define FIFO_LEN	10
-uint8_t btn0_fifo[FIFO_LEN];
-uint8_t btn1_fifo[FIFO_LEN];
-uint8_t btn0_fifo_rd;
-uint8_t btn0_fifo_wr;
-uint8_t btn1_fifo_rd;
-uint8_t btn1_fifo_wr;
+struct fifo_struct btn0_fifo;
+struct fifo_struct btn1_fifo;
 
 // global gain and force ints
 uint32_t gain_data;
@@ -453,17 +444,9 @@ static  void  Ex_MainStartTask (void  *p_arg)
     OSMutexCreate ((OS_MUTEX *) &gain_mutex,
 			(CPU_CHAR *) "Gain Mutex",
 			(RTOS_ERR *) &err);
-    // Create the message queue
-    OSQCreate((OS_Q	*)
-    		&queue,
-			(CPU_CHAR *)"Message Queue",
-			(OS_MSG_QTY)4,
-			(RTOS_ERR *)&err);
     // Declare the two FIFOs
-    btn0_fifo_rd = 0;
-    btn0_fifo_wr = 0;
-    btn1_fifo_rd = 0;
-    btn1_fifo_wr = 0;
+    fifo_init(&btn0_fifo);
+    fifo_init(&btn1_fifo);
 
     // Start the timer
     OSTmrStart ((OS_TMR *) &tmr, (RTOS_ERR *) &err);
@@ -711,12 +694,12 @@ static  void  Ex_MainGainTask (void  *p_arg)
     	CORE_DECLARE_IRQ_STATE;           // Storage for saving IRQ state prior
     	CORE_ENTER_ATOMIC();
     	// interpret results from fifo 0
-    	if (!fifo_isempty(btn0_fifo, &btn0_fifo_wr, &btn0_fifo_rd)) {
-    		btn0_status = fifo_pop(btn0_fifo, &btn0_fifo_rd, FIFO_LEN);
+    	if (!fifo_isempty(&btn0_fifo)) {
+    		btn0_status = fifo_pop(&btn0_fifo);
     	}
     	// interpret results from fifo 1
-    	if (!fifo_isempty(btn1_fifo, &btn1_fifo_wr, &btn1_fifo_rd)) {
-    		btn1_status = fifo_pop(btn1_fifo, &btn1_fifo_rd, FIFO_LEN);
+    	if (!fifo_isempty(&btn1_fifo)) {
+    		btn1_status = fifo_pop(&btn1_fifo);
     	}
 		CORE_EXIT_ATOMIC();
 
@@ -857,11 +840,11 @@ void GPIO_EVEN_IRQHandler(void)
 	bool PB0_status;
 	poll_PB0(&PB0_status);
 	if (PB0_status) {
-	    fifo_push(btn0_fifo, &btn0_fifo_wr, FIFO_LEN, 1);
+	    fifo_push(&btn0_fifo, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-	    fifo_push(btn0_fifo, &btn0_fifo_wr, FIFO_LEN, 0);
+	    fifo_push(&btn0_fifo, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	__enable_irq();
@@ -890,11 +873,11 @@ void GPIO_ODD_IRQHandler(void)
 	bool PB1_status;
 	poll_PB1(&PB1_status);
 	if (PB1_status) {
-	    fifo_push(btn1_fifo, &btn1_fifo_wr, FIFO_LEN, 1);
+	    fifo_push(&btn1_fifo, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-	    fifo_push(btn1_fifo, &btn1_fifo_wr, FIFO_LEN, 0);
+	    fifo_push(&btn1_fifo, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 
