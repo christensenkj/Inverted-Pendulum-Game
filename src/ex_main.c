@@ -799,7 +799,7 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
 	    if (!game_state) {
 	    	sys_time = (int) (msTicks/1000);
 		    /* Print time */
-		    sprintf(time, "%d", sys_time);
+		    sprintf(time, "%lu", sys_time);
 	    }
 	    GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNumber16x20);
 	    GLIB_drawString(&gc, time, 4, 52, 90, 0);
@@ -853,11 +853,11 @@ void GPIO_EVEN_IRQHandler(void)
 	bool PB0_status;
 	poll_PB0(&PB0_status);
 	if (PB0_status) {
-	    fifo_push(&btn0_fifo, 1);
+	    fifo_push(&btn1_fifo, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-	    fifo_push(&btn0_fifo, 0);
+	    fifo_push(&btn1_fifo, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	__enable_irq();
@@ -886,11 +886,11 @@ void GPIO_ODD_IRQHandler(void)
 	bool PB1_status;
 	poll_PB1(&PB1_status);
 	if (PB1_status) {
-	    fifo_push(&btn1_fifo, 1);
+	    fifo_push(&btn0_fifo, 1);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 	else {
-	    fifo_push(&btn1_fifo, 0);
+	    fifo_push(&btn0_fifo, 0);
 		OSSemPost (&fifo_sem, OS_OPT_POST_ALL, &err);
 	}
 

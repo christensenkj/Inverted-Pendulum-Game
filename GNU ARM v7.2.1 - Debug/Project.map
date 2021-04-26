@@ -18753,8 +18753,7 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
  .rodata        0x00015f08      0x143 ./service/sl_sleeptimer_hal_rtcc.o
  *fill*         0x0001604b        0x1 
  .rodata        0x0001604c       0x64 ./src/buttons.o
- .rodata        0x000160b0      0x153 ./src/ex_main.o
- *fill*         0x00016203        0x1 
+ .rodata        0x000160b0      0x154 ./src/ex_main.o
  .rodata.npio2_hw
                 0x00016204       0x80 c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/softfp\libm.a(lib_a-e_rem_pio2.o)
  .rodata.two_over_pi
