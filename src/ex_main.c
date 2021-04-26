@@ -162,7 +162,7 @@ struct fifo_struct btn1_fifo;
 uint32_t gain_data;
 double force_data;
 
-// Data types for tasks
+// Data type for physics task
 struct physics_data_struct {
 	uint8_t version;
 	uint8_t game_state;
@@ -170,10 +170,11 @@ struct physics_data_struct {
 	double bob_mass;
 	double cart_mass;
 	double len;
-	uint32_t graph_lim;
 	uint32_t xmin;
 	uint32_t xmax;
-	double time;
+	uint8_t variant;
+	double max_force;
+	uint8_t num_obstacles;
 	double theta;
 	double x_pos;
 	double w;
@@ -221,34 +222,33 @@ static void MyCallback(OS_TMR p_tmr, void *p_arg);
 *********************************************************************************************************
 */
 
-/*
-*********************************************************************************************************
-*                                                main()
-*
-* Description : This is the standard entry point for C applications. It is assumed that your code will
-*               call main() once you have performed all necessary initialization.
-*
-* Argument(s) : None.
-*
-* Return(s)   : None.
-*
-* Note(s)     : None.
-*********************************************************************************************************
-*/
 
 
+/***************************************************************************//**
+ * @brief
+ *   Calculates time derivative of angle
+ ******************************************************************************/
 double dthetadt(double w) {
     return w;
 }
-
+/***************************************************************************//**
+ * @brief
+ *   Calculates time derivative of position along x axis
+ ******************************************************************************/
 double dxdt(double v) {
     return v;
 }
-
+/***************************************************************************//**
+ * @brief
+ *   Calculates time derivative of angular velocity
+ ******************************************************************************/
 double dwdt(double F, double theta, double w, double L, double M, double m, double g) {
     return ( 1/((M+m) - m*cos(theta)*cos(theta)) * (F*cos(theta)/L + (g/L)*((M+m)*sin(theta)) - m*w*w*sin(theta)*cos(theta)) );
 }
-
+/***************************************************************************//**
+ * @brief
+ *   Calculates time derivative of positional velocity along x axis
+ ******************************************************************************/
 double dvdt(double F, double theta, double w, double L, double M, double m, double g) {
     return ( 1/( cos(theta)*cos(theta) - (M+m)/(m)) * ( (w*w*L*sin(theta) - F/(m) - g*sin(theta)*cos(theta)) ) );
 }
@@ -506,10 +506,12 @@ static  void  Ex_MainIdleTask (void  *p_arg)
 
 /***************************************************************************//**
  * @brief
- *   Updates the Speed Setpoint Data
+ *   Updates the Physics data structure to reflect time-accurate and physics-accurate changes
  *
  * @details
- * 	 This task is used to determine button inputs values and their impact on vehicle speed
+ * 	 Time is kept using Systick Timer with resolution of 1 ms.
+ * 	 The physics uses a Semi-Implicit Euler's method for solving the second order system of nonlinear differential
+ * 	 equations characteristic to the inverted pendulum problem.
  *
  *
  ******************************************************************************/
@@ -523,23 +525,28 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
 #endif
                                                                 /* ... the platform manager at this moment.             */
 
-    uint32_t start_time = 0;
     // set the initial conditions
+    // initial system time
+    uint32_t start_time = 0;
+    // set all physics data structure parameters
     physics_data.version = 2;
     physics_data.game_state = 0;
 	physics_data.gravity = 9.81;
 	physics_data.bob_mass = 20;
 	physics_data.cart_mass = 20;
 	physics_data.len = 30;
-	physics_data.graph_lim = 100;
 	physics_data.xmin = 0;
 	physics_data.xmax = 125;
-	physics_data.time = 0;
+	physics_data.variant = 1;
+	physics_data.max_force =
 	physics_data.theta = 0.01;
 	physics_data.x_pos = 0;
 	physics_data.w = 0;
 	physics_data.v = 0;
+	physics_data.num_obstacles = 0;
+	// set the game to initially play mode
     uint8_t game_reset = 0;
+    // local variables to store values for the solver
     double v_int;
     double w_int;
     double x_int;
@@ -548,9 +555,9 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
     uint32_t x_max;
 
     while (DEF_ON) {
-    	// pend on the semaphore that is to be posted by the OSTimer counter handler
-//        OSSemPend (&timer_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
+    	// Check that the game is currently being played
     	if (!game_reset) {
+
     		// get the end time of the last iteration
     		uint32_t end_time = msTicks;
     		double dt = (double)(end_time-start_time)/1000;
@@ -571,7 +578,7 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
         	// release access to physics data
         	OSMutexPost (&physics_mutex, OS_OPT_POST_NONE, &err);
 
-            // Roses are red. Violets are blue. I love C. How about U?
+            // Solve the parameters of the physics system using Semi-Implicit Euler
             v_int = v + dt*dvdt(F, theta, w, L, M, m, g);
             // In semi-implicit Euler, update the position coordinate using the
             // velocity at the new time.
@@ -579,11 +586,9 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
             // Similarly for the angles.
             w_int = w + dt*dwdt(F, theta, w, L, M, m, g);
             theta_int = theta + dt*dthetadt(w_int);
-            physics_data.time += dt;
 
         	// obtain access to physics data
         	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-        	physics_data.time += dt;
         	physics_data.x_pos = x_int;
         	physics_data.v = v_int;
         	physics_data.w = w_int;
@@ -594,14 +599,18 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
         	// get the start time for the next iteration
             start_time = msTicks;
 
+            // Check game ending conditions
+            // Has the post fallen?
             if (fabs(theta_int) > 1.57) {
             	game_reset = 1;
             }
+            // has the cart reached the end points?
             if (((int) (66 + x_int)) < x_min ||
             		((int) (66 + x_int)) > x_max) {
             	game_reset = 1;
             }
     	}
+    	// If the game is ended, stay here
     	else {
     		// obtain access to physics data
     		OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
@@ -611,7 +620,7 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
         	GPIO_PinOutSet(LED0_port, LED0_pin);
     	}
 
-        /* Delay Start Task execution for  */
+        /* Delay Start Task execution for 8 ms */
 		OSTimeDly(8, OS_OPT_TIME_DLY, &err);
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
@@ -620,10 +629,10 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
 
 /***************************************************************************//**
  * @brief
- *   Updates the Vehicle Direction Data
+ *   Updates the Force data
  *
  * @details
- * 	 This task is used to update vehicle direction data using the slider
+ * 	 This task is used to update the force applied to the cart
  *
  *
  ******************************************************************************/
@@ -632,6 +641,8 @@ static  void  Ex_MainForceTask (void  *p_arg)
 {
     RTOS_ERR  err;
     uint8_t slider_pos;
+    // set the necessary force parameters
+    physics_data.max_force = 150.0;
     double nominal_force = 100.0;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
@@ -642,10 +653,11 @@ static  void  Ex_MainForceTask (void  *p_arg)
                                                                 /* ... the platform manager at this moment.             */
     slider_setup();
     while (DEF_ON) {
+    	// Pend on a timer semaphore
     	OSSemPend (&timer_sem, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
         // retrieve the slider status
         slider_position(&slider_pos);
-
+        // Interpret the slider value
         switch (slider_pos) {
         case INACTIVE:
         	force_data = 0;
@@ -665,8 +677,6 @@ static  void  Ex_MainForceTask (void  *p_arg)
         default:
         	break;
         }
-//        /* Delay Start Task execution for  */
-//		OSTimeDly(100, OS_OPT_TIME_DLY, &err);
 		/*   Check error code.                                  */
         APP_RTOS_ASSERT_DBG((RTOS_ERR_CODE_GET(err) == RTOS_ERR_NONE), ;);
     }
@@ -695,6 +705,7 @@ static  void  Ex_MainGainTask (void  *p_arg)
     CPU_IntDisMeasMaxCurReset();                                /* Initialize interrupts disabled measurement.          */
 #endif
     buttons_setup();                                           /* ... the platform manager at this moment.             */
+    // Initialize the gain data to 6 out of 20
     gain_data = 6;
     while (DEF_ON) {
     	// pend on semaphore
@@ -712,6 +723,7 @@ static  void  Ex_MainGainTask (void  *p_arg)
     	}
 		CORE_EXIT_ATOMIC();
 
+		// Apply changes to the gain data as indicated by values in the button fifos
 		if (btn0_status && (gain_data > 0)) {
 			gain_data-=2;
 		}
@@ -729,8 +741,7 @@ static  void  Ex_MainGainTask (void  *p_arg)
  *   Updates the LCD Display
  *
  * @details
- * 	 This task is used to display environment variables on the LCD
- *
+ * 	 This task is used to display the post, the cart, the count at the bottom, and the ground
  *
  ******************************************************************************/
 
@@ -761,14 +772,20 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
       while (true)
         ;
     }
+    // declare a rectangle object
     GLIB_Rectangle_t pRect;
+    // set the length to 40
     double len = 40;
+    // initialize an array to hold the time string
     char time[4];
+    // local variables to hold physics data
     double x_pos;
     double theta;
+    // variables to keep track
     uint8_t game_state;
     uint32_t sys_time;
     while (DEF_ON) {
+    	// initialize the display object
     	GLIB_clear(&gc);
     	GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
         gc.backgroundColor = White;
@@ -905,6 +922,7 @@ void GPIO_ODD_IRQHandler(void)
 void SysTick_Handler(void)
 {
   msTicks++;
+  // determine times for PWM
   if (msTicks%20 == 0) {
 	  start = msTicks;
   }
