@@ -597,8 +597,8 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
             if (fabs(theta_int) > 1.57) {
             	game_reset = 1;
             }
-            if (((int) (66 + x_int - sin(theta_int)*40)) < x_min||
-            		((int) (66 + x_int - sin(theta_int)*40)) > x_max) {
+            if (((int) (66 + x_int)) < x_min ||
+            		((int) (66 + x_int)) > x_max) {
             	game_reset = 1;
             }
     	}
@@ -771,8 +771,8 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
     while (DEF_ON) {
     	GLIB_clear(&gc);
     	GLIB_setFont(&gc, (GLIB_Font_t *)&GLIB_FontNarrow6x8);
-        gc.backgroundColor = Black;
-        gc.foregroundColor = White;
+        gc.backgroundColor = White;
+        gc.foregroundColor = Black;
 
     	// obtain access to physics data
     	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
