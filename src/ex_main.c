@@ -539,7 +539,7 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
 	physics_data.xmax = 125;
 	physics_data.variant = 1;
 	physics_data.max_force =
-	physics_data.theta = 0.01;
+	physics_data.theta = 0.05;
 	physics_data.x_pos = 0;
 	physics_data.w = 0;
 	physics_data.v = 0;
