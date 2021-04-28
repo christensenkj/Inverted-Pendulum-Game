@@ -160,25 +160,25 @@ struct fifo_struct btn1_fifo;
 
 // global gain and force ints
 uint32_t gain_data;
-double force_data;
+float force_data;
 
 // Data type for physics task
 struct physics_data_struct {
 	uint8_t version;
 	uint8_t game_state;
-	double gravity;
-	double bob_mass;
-	double cart_mass;
-	double len;
+	float gravity;
+	float bob_mass;
+	float cart_mass;
+	float len;
 	uint32_t xmin;
 	uint32_t xmax;
 	uint8_t variant;
-	double max_force;
+	float max_force;
 	uint8_t num_obstacles;
-	double theta;
-	double x_pos;
-	double w;
-	double v;
+	float theta;
+	float x_pos;
+	float w;
+	float v;
 } physics_data;
 
 /* Global glib context */
@@ -228,28 +228,28 @@ static void MyCallback(OS_TMR p_tmr, void *p_arg);
  * @brief
  *   Calculates time derivative of angle
  ******************************************************************************/
-double dthetadt(double w) {
+float dthetadt(float w) {
     return w;
 }
 /***************************************************************************//**
  * @brief
  *   Calculates time derivative of position along x axis
  ******************************************************************************/
-double dxdt(double v) {
+float dxdt(float v) {
     return v;
 }
 /***************************************************************************//**
  * @brief
  *   Calculates time derivative of angular velocity
  ******************************************************************************/
-double dwdt(double F, double theta, double w, double L, double M, double m, double g) {
+float dwdt(float F, float theta, float w, float L, float M, float m, float g) {
     return ( 1/((M+m) - m*cos(theta)*cos(theta)) * (F*cos(theta)/L + (g/L)*((M+m)*sin(theta)) - m*w*w*sin(theta)*cos(theta)) );
 }
 /***************************************************************************//**
  * @brief
  *   Calculates time derivative of positional velocity along x axis
  ******************************************************************************/
-double dvdt(double F, double theta, double w, double L, double M, double m, double g) {
+float dvdt(float F, float theta, float w, float L, float M, float m, float g) {
     return ( 1/( cos(theta)*cos(theta) - (M+m)/(m)) * ( (w*w*L*sin(theta) - F/(m) - g*sin(theta)*cos(theta)) ) );
 }
 
@@ -547,10 +547,10 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
 	// set the game to initially play mode
     uint8_t game_reset = 0;
     // local variables to store values for the solver
-    double v_int;
-    double w_int;
-    double x_int;
-    double theta_int;
+    float v_int;
+    float w_int;
+    float x_int;
+    float theta_int;
     uint32_t x_min;
     uint32_t x_max;
 
@@ -560,19 +560,19 @@ static  void  Ex_MainPhysicsTask (void  *p_arg)
 
     		// get the end time of the last iteration
     		uint32_t end_time = msTicks;
-    		double dt = (double)(end_time-start_time)/1000;
-        	double F = force_data*gain_data;
+    		float dt = (float)(end_time-start_time)/1000;
+        	float F = force_data*gain_data;
 
         	// obtain access to physics data
         	OSMutexPend (&physics_mutex, 0, OS_OPT_PEND_BLOCKING, NULL, &err);
-        	double x = physics_data.x_pos;
-        	double v = physics_data.v;
-        	double theta = physics_data.theta;
-        	double w = physics_data.w;
-        	double L = physics_data.len;
-        	double M = physics_data.cart_mass;
-        	double m = physics_data.bob_mass;
-        	double g = physics_data.gravity;
+        	float x = physics_data.x_pos;
+        	float v = physics_data.v;
+        	float theta = physics_data.theta;
+        	float w = physics_data.w;
+        	float L = physics_data.len;
+        	float M = physics_data.cart_mass;
+        	float m = physics_data.bob_mass;
+        	float g = physics_data.gravity;
         	x_min = physics_data.xmin;
         	x_max = physics_data.xmax;
         	// release access to physics data
@@ -643,7 +643,7 @@ static  void  Ex_MainForceTask (void  *p_arg)
     uint8_t slider_pos;
     // set the necessary force parameters
     physics_data.max_force = 150.0;
-    double nominal_force = 100.0;
+    float nominal_force = 100.0;
 
     PP_UNUSED_PARAM(p_arg);                                     /* Prevent compiler warning.                            */
 
@@ -775,12 +775,12 @@ static  void  Ex_MainLcdDisplayTask (void  *p_arg)
     // declare a rectangle object
     GLIB_Rectangle_t pRect;
     // set the length to 40
-    double len = 40;
+    float len = 40;
     // initialize an array to hold the time string
     char time[4];
     // local variables to hold physics data
-    double x_pos;
-    double theta;
+    float x_pos;
+    float theta;
     // variables to keep track
     uint8_t game_state;
     uint32_t sys_time;
